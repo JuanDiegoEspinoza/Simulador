@@ -5,6 +5,7 @@
  */
 package simulador;
 import java.util.LinkedList;
+
 /**
  *
  * @author JuanDiego
@@ -16,6 +17,7 @@ public class Proceso {
     private String codigo;
     private int tiempo;
     private LinkedList listaRecursos = new LinkedList();
+    private int ja =0;
 
 
 
