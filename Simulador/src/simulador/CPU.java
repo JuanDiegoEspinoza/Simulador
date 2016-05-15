@@ -19,7 +19,7 @@ public class CPU{
         colaBlock = new Queue();
         colaReady = new Queue();
         ram = new RAM(512);
-        hdd = new HDD(20000);
+        hdd = new HDD(200);
         paginacion = new HashMap<Integer, Integer>();
   }
     public void verMap(){
@@ -55,14 +55,14 @@ public class CPU{
       Proceso proceso = new Proceso(1,1,1,"j",1,jf);
       Proceso proceso2 = new Proceso(2,1,11,"d",1,f);
       Proceso proceso3 = new Proceso(3,0,1,"d",1,f);
-      Proceso proceso4 = new Proceso(4,1,11,"d",1,f);
-      Proceso proceso5 = new Proceso(5,1,12,"d",1,f);
+      Proceso proceso4 = new Proceso(4,1,55005445,"d",1,f);
+      //Proceso proceso5 = new Proceso(5,1,1220,"d",1,f);
       CPU cpu = new CPU();
       cpu.agregarProceso(proceso);
       cpu.agregarProceso(proceso2);
       cpu.agregarProceso(proceso3);
       cpu.agregarProceso(proceso4);
-      cpu.agregarProceso(proceso5);
+      //cpu.agregarProceso(proceso5);
       cpu.verMap();
     
   }
