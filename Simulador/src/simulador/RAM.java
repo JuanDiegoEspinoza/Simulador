@@ -61,14 +61,27 @@ public class RAM {
         if (getUso() - proceso.getMemoria()>0){
             listaProceso.add(proceso);
             setUso(-proceso.getMemoria());
-            System.out.println("El proceso sido agregado a RAM");
+            infra.Inicio.pantalla.append("El proceso ha sido agregado a RAM \n");
+            System.out.println("El proceso ha sido agregado a RAM");
             return 1;
         }
         else{
+            infra.Inicio.pantalla.append("El proceso no ha sido agregado a RAM \n");
           System.out.println("El proceso no sido agregado a RAM");
           return -1;
         }
 
+    }
+    
+    public Proceso verificarBloqueados(){
+        for (int i=0;i<listaProceso.size();i++){
+            if(listaProceso.get(i).getEstado()==0){
+                sacarProceso(listaProceso.get(i).getId());
+                return listaProceso.get(i);
+            } 
+            return null; //-1 indica que no hay bloqueados
+        }
+         return null;
     }
 
     public void sacarProceso(int id){
@@ -77,6 +90,7 @@ public class RAM {
             Proceso proceso = listaProceso.get(i);
             if (proceso.getId()==id){
                 listaProceso.remove(id);
+                setUso(proceso.getMemoria());
                 return;
             }
         }
@@ -94,8 +108,11 @@ public class RAM {
     public Proceso sacarBloqueado(){
         int largoLista = listaProceso.size();
         for (int i=0;i<largoLista;i++){
-            if (listaProceso.get(i).getEstado()==0){
-                return listaProceso.get(i);
+            Proceso qwerty = listaProceso.get(i);
+            if (qwerty.getEstado()==0){
+                listaProceso.remove(qwerty);
+                setUso(qwerty.getMemoria());
+                return qwerty;
             }
         }
         return null;

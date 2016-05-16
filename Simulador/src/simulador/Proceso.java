@@ -14,19 +14,20 @@ public class Proceso {
     private int id;
     private int estado;
     private int memoria;
-    private String codigo;
+    private int codigo;
     private int tiempo;
     private LinkedList listaRecursos = new LinkedList();
     private int ja =0;
 
 
 
-    public Proceso(int id, int estado, int memoria, String codigo, int tiempo, LinkedList listaRecursos){
+    public Proceso(int id, int estado, int memoria, int codigo, int tiempo){
         this.id= id;
         this.estado= estado;
         this.memoria=memoria;
         this.codigo= codigo;
         this.tiempo= tiempo;
+        
         this.listaRecursos= listaRecursos;
     }
 
@@ -54,11 +55,11 @@ public class Proceso {
         this.memoria= memoria;
     }
 
-    public String getCodigo(){
+    public int getCodigo(){
         return this.codigo;
     }
 
-    public void setCodigo(String codigo){
+    public void setCodigo(int codigo){
         this.codigo= codigo;
     }
     public int getTiempo(){
@@ -66,5 +67,15 @@ public class Proceso {
     }
     public void setTiempo(int tiempo){
         this.tiempo= tiempo;
+    }
+    
+    public int Procesos(int indice, int parametro){
+        if (indice==1){
+        }
+        else if (indice==2){
+        }
+        else if (indice==3){
+        }
+        return 1;
     }
 }

@@ -18,8 +18,8 @@ public class CPU{
     public CPU(){
         colaBlock = new Queue();
         colaReady = new Queue();
-        ram = new RAM(512);
-        hdd = new HDD(2006565655);
+        ram = new RAM(4096);
+        hdd = new HDD(524288);
         paginacion = new HashMap<Integer, Integer>();
   }
     public void verMap(){
@@ -32,11 +32,22 @@ public class CPU{
       int valor2 = 0;
       int valor = ram.agregarProceso(proceso);
       if (valor==-1){
-          System.out.println("RAM no cuenta con suficientes recursos");
+          Proceso idproc= ram.sacarBloqueado();
+          System.out.println("Verificando bloqueados");
+          if (idproc!=null){
+              System.out.println("Verificando bloqueados dentro del if");
+              hdd.agregarProceso(idproc);
+              agregarProceso(proceso);
+          }
+          else{
+              System.out.println("RAM no cuenta con suficientes recursos");
+          infra.Inicio.pantalla.append("\tRAM no cuenta con suficientes recursos \n");
           valor2 = hdd.agregarProceso(proceso);
           if (valor2==-1){
+              infra.Inicio.pantalla.append("\tEl HDD no cuenta con suficientes recursos \n");
               System.out.println("El HDD no cuenta con suficientes recursos");
           }
+      
           else{
               paginacion.put(proceso.getId(), valor2);
               if (proceso.getEstado()==1){
@@ -46,25 +57,9 @@ public class CPU{
                 colaBlock.enqueue(proceso);
               }
           }
+          }
+          
       }
+      verMap();
   }
-  public static void main(String[] args) {
-      LinkedList jf = new LinkedList();
-      LinkedList f = new LinkedList();
-      //Proceso(int id, int estado, int memoria, String codigo, int tiempo, LinkedList listaRecursos){
-      Proceso proceso = new Proceso(1,1,1,"j",1,jf);
-      Proceso proceso2 = new Proceso(2,1,654684681,"d",1,f);
-      Proceso proceso3 = new Proceso(3,0,1,"d",1,f);
-      Proceso proceso4 = new Proceso(4,1,55005445,"d",1,f);
-      //Proceso proceso5 = new Proceso(5,1,1220,"d",1,f);
-      CPU cpu = new CPU();
-      cpu.agregarProceso(proceso);
-      cpu.agregarProceso(proceso2);
-      cpu.agregarProceso(proceso3);
-      cpu.agregarProceso(proceso4);
-      //cpu.agregarProceso(proceso5);
-      cpu.verMap();
-    
-  }
-
-}
+ }

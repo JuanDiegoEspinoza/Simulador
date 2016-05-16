@@ -46,10 +46,12 @@ public class HDD {
         if (getUso()-proceso.getMemoria()>0){
             listaHDD.add(proceso);
             setUso(-proceso.getMemoria());
-            System.out.println("Proceso ha sido paginado");
+            infra.Inicio.pantalla.append("\tProceso ha sido paginado \n");
+            System.out.println("\tProceso ha sido paginado");
             return listaHDD.size()-1;
         }
-        System.out.println("Proceso no ha sido paginado");
+        infra.Inicio.pantalla.append("\tProceso no ha sido paginado \n");
+        System.out.println("\tProceso no ha sido paginado");
         return -1;
     }
 
@@ -64,7 +66,7 @@ public class HDD {
                 return;
             }
         }
-        System.out.println("Proceso no encontrado...");
+        System.out.println("\tProceso no encontrado...");
     }
 
     public void setLista(ArrayList<Proceso> lista){
