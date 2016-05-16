@@ -7,6 +7,7 @@ package infra;
 import simulador.CPU;
 import simulador.Proceso;
 import simulador.*;
+import simulador.Dispatcher;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         h = new CronometroAt();
         initComponents();
-        id = 00000;
+        id = 0;
         
     }
 
@@ -333,8 +334,9 @@ public class Inicio extends javax.swing.JFrame {
 
     private void p1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p1ActionPerformed
         //Proceso(int id, int estado, int memoria, String codigo, int tiempo){
-        Proceso proceso1 = new Proceso(id,1,345,1,5);
         id+=1;
+        Proceso proceso1 = new Proceso(id,1,345,1,5);
+        
         pantalla.append(">>Proceso 1 inicia. \n\tPID: 0000"+id +" \n\tDurará: 5 segundos"  );
         pantalla.append("\n\t Utilizará 345 MB\n\t");
         cpu.agregarProceso(proceso1);
@@ -361,9 +363,11 @@ private void prueba(){
     private void p2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p2ActionPerformed
         // TODO add your handling code here:
         //Proceso(int id, int estado, int memoria, String codigo, int tiempo){
-        Proceso proceso2 = new Proceso(id,0,500,1,5);
         id+=1;
+        Proceso proceso2 = new Proceso(id,0,500,1,5);
+        
         pantalla.append(">>Proceso 2 inicia. \n\tPID: 0000"+id +" \n\tDurará: 10 segundos"  );
+        
         pantalla.append("\n\t Utilizará 500 MB\n\t");
         cpu.agregarProceso(proceso2);
         espera();
@@ -378,7 +382,8 @@ private void prueba(){
         // TODO add your handling code here:
          jButton9.setVisible(false);
          h.hilo.start();
-         cpu = new CPU();         
+         cpu = new CPU();
+         (new Thread (new Dispatcher())).start();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

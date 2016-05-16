@@ -61,13 +61,13 @@ public class RAM {
         if (getUso() - proceso.getMemoria()>0){
             listaProceso.add(proceso);
             setUso(-proceso.getMemoria());
-            infra.Inicio.pantalla.append("El proceso ha sido agregado a RAM \n");
-            System.out.println("El proceso ha sido agregado a RAM");
+            infra.Inicio.pantalla.append(">>\tEl proceso ha sido agregado a RAM PID: "+proceso.getId()+"\n");
+            System.out.println("El proceso ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
             return 1;
         }
         else{
-            infra.Inicio.pantalla.append("El proceso no ha sido agregado a RAM \n");
-          System.out.println("El proceso no sido agregado a RAM");
+            infra.Inicio.pantalla.append("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
+          System.out.println("El proceso no sido agregado a RAM...PID: "+proceso.getId()+"\n");
           return -1;
         }
 
@@ -84,17 +84,19 @@ public class RAM {
          return null;
     }
 
-    public void sacarProceso(int id){
+    public Proceso sacarProceso(int id){
         int largo = listaProceso.size();
         for(int i =0; i<largo;i++){
             Proceso proceso = listaProceso.get(i);
             if (proceso.getId()==id){
                 listaProceso.remove(id);
                 setUso(proceso.getMemoria());
-                return;
+                System.out.println("YEAH");
+                return null;
             }
         }
         System.out.println("Proceso no encontrado...");
+        return null;
     }
 
     public ArrayList<Proceso> getLista(){

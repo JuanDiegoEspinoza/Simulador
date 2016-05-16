@@ -46,12 +46,12 @@ public class HDD {
         if (getUso()-proceso.getMemoria()>0){
             listaHDD.add(proceso);
             setUso(-proceso.getMemoria());
-            infra.Inicio.pantalla.append("\tProceso ha sido paginado \n");
-            System.out.println("\tProceso ha sido paginado");
+            infra.Inicio.pantalla.append("\tProceso ha sido paginado PID: "+proceso.getId()+"\n");
+            System.out.println("\tProceso ha sido paginado PID: "+proceso.getId()+"\n");
             return listaHDD.size()-1;
         }
-        infra.Inicio.pantalla.append("\tProceso no ha sido paginado \n");
-        System.out.println("\tProceso no ha sido paginado");
+        infra.Inicio.pantalla.append("\tProceso no ha sido paginado \nPID: "+proceso.getId()+"\n");
+        System.out.println("\tProceso no ha sido paginadoPID: "+proceso.getId()+"\n");
         return -1;
     }
 
