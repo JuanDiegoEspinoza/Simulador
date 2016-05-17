@@ -89,9 +89,10 @@ public class RAM {
         for(int i =0; i<largo;i++){
             Proceso proceso = listaProceso.get(i);
             if (proceso.getId()==id){
-                listaProceso.remove(id);
+                listaProceso.remove(proceso);
                 setUso(proceso.getMemoria());
                 System.out.println("YEAH");
+                System.out.println("Saco:"+proceso.getId());
                 return null;
             }
         }

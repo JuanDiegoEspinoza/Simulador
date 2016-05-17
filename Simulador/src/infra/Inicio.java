@@ -19,7 +19,7 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     private CronometroAt h;
-    private CPU cpu;
+    public static CPU cpu;
     private static int id;
     public Inicio() {
         h = new CronometroAt();
@@ -199,17 +199,19 @@ public class Inicio extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(66, 66, 66)
-                                        .addComponent(jLabel7)
-                                        .addGap(15, 292, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                         .addGap(60, 60, 60)
                                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31))))
+                                        .addGap(31, 31, 31))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(66, 66, 66)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(etiq, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(21, 21, 21))))
                             .addComponent(jScrollPane3)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
@@ -241,9 +243,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(etiq, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(21, 187, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,22 +344,28 @@ public class Inicio extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_p1ActionPerformed
-private void prueba(){
+public String getTime(){
+    return etiq.getText();
+}
+    private void prueba(){
     
     pantalla.append(">>Proceso 1 inicia:  "+ etiq.getText()+"\n");
 }
     private void espera(){ 
     try{
         wait(1000);
-        pantalla.append(">>Proceso 1 termina:  "+ etiq.getText()+"\n");
-        
-        
+        pantalla.append(">>Proceso 1 termina:  "+ etiq.getText()+"\n");  
     }
     catch (Exception e) {
     // Mensaje en caso de que falle
     System.out.println("fallo");
     }
 }
+    
+    public void loca(){
+    System.out.println("SASDG");
+    }
+    
     private void p2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p2ActionPerformed
         // TODO add your handling code here:
         //Proceso(int id, int estado, int memoria, String codigo, int tiempo){
@@ -383,7 +389,9 @@ private void prueba(){
          jButton9.setVisible(false);
          h.hilo.start();
          cpu = new CPU();
-         (new Thread (new Dispatcher())).start();
+            Thread d= new Thread(new Dispatcher(), "hilo" );
+            d.start();
+         
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -426,6 +434,8 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
         }
     
 };}
+      
+       
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

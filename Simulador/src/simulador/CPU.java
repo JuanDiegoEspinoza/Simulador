@@ -24,13 +24,14 @@ public class CPU{
         ram = new RAM(4096);
         hdd = new HDD(524288);
         paginacion = new HashMap<Integer, Integer>();
+        terminados= new Queue();
   }
     public void verMap(){
         System.out.println(paginacion.isEmpty());
         System.out.println(paginacion.values());
         System.out.println(paginacion.entrySet());
     }
-    
+       
     
     public void agregarProceso(Proceso proceso){
         int valor2 = 0;
