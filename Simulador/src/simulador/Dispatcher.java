@@ -5,12 +5,15 @@
  */
 package simulador;
 
+import Estructuras.Queue;
 import infra.Inicio;
 import java.awt.Frame;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static simulador.CPU.ram;
 
+import static simulador.CPU.ram;
 /**
  *
  * @author JuanDiego
@@ -18,6 +21,25 @@ import static simulador.CPU.ram;
 public class Dispatcher  extends CPU implements Runnable{
     
 
+    public void MISS(){
+        ArrayList<Proceso> listaHDD = infra.Inicio.cpu.hdd.listaHDD;
+        int largo = listaHDD.size();
+        ArrayList<Proceso> listaRAM = infra.Inicio.cpu.ram.listaProceso;
+        int largoRAM  = listaRAM.size();
+        //MISS
+        if(largo!=0){
+            for(int i=0;i<largo-1;i++){
+             
+                Proceso proceso = listaHDD.get(i);
+                if (proceso.getEstado()==0){
+                    proceso.setTiempo(10);
+                    infra.Inicio.cpu.agregarProceso(proceso);
+                    infra.Inicio.cpu.paginacion.remove(proceso.getId());
+                }
+            }
+        }      
+    }
+    
     public void dispatch() {
         while(true){
          System.out.println("");
@@ -27,18 +49,22 @@ public class Dispatcher  extends CPU implements Runnable{
                     Proceso p = ram.getLista().get(i);
                     if(p.getEstado()==1){
                         try {
-                            // Hilo qwerty = new Hilo(ram.getLista().get(i));
-                            //qwerty.iniciar();
+                            infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
+                            infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
                             infra.Inicio.pantalla.append("\tPROCESO SERA INICIADO. PID: "+p.getId()+"\n");
                             Thread.sleep(p.getTiempo()*1000);
-                            //ram.getLista().get(i).setEstado(0);
                             
                             Proceso proc = ram.sacarProceso(p.getId());
                             infra.Inicio.cpu.terminados.enqueue(proc);
-                            infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>\n");
+                            MISS();
+                            infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>>\n");
+                            infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
+                            infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
+                            
+                            //MISS();
                             
                         } catch (InterruptedException ex) {
-                            System.out.println("ERROOOORERERER");
+                            System.out.println("ERROR");
                           //  Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
@@ -47,7 +73,7 @@ public class Dispatcher  extends CPU implements Runnable{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     
-    }
+    }                  
 
     @Override
     public void run() {

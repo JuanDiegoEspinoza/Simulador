@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package simulador;
+import infra.Inicio;
 import simulador.Proceso;
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -16,16 +17,16 @@ import java.util.*;
  */
 public class RAM {
 
-    private int tamano;
-    private ArrayList<Proceso> listaProceso;
-    private int porcentaje;
+   
+    public ArrayList<Proceso> listaProceso;
+ 
     private int uso;
 
 
     public RAM(int tamano){
         listaProceso = new ArrayList<Proceso>();
         this.uso=tamano;
-        this.porcentaje=100;
+       
     }
 
     
@@ -37,13 +38,7 @@ public class RAM {
         return this.uso;
     }
 
-    public int getPorcentaje(){
-        return this.porcentaje;
-    }
-
-    public void setPorcentaje(int porcentaje){
-        this.porcentaje+=porcentaje;
-    }
+  
 
     public Proceso BuscarProceso(int id){
         int largoLista = this.listaProceso.size();
@@ -58,20 +53,37 @@ public class RAM {
     }
 
     public int agregarProceso(Proceso proceso){
-        if (getUso() - proceso.getMemoria()>0){
+        if (getUso() - proceso.getMemoria()>=0 && Inicio.cpu.hdd.listaHDD.isEmpty()){
+            proceso.setEstado(1);
             listaProceso.add(proceso);
             setUso(-proceso.getMemoria());
-            infra.Inicio.pantalla.append(">>\tEl proceso ha sido agregado a RAM PID: "+proceso.getId()+"\n");
+            infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+proceso.getId()+"\n");
+            String p=  Integer.toString(proceso.getId());
+            //Inicio.ram.add(p);
             System.out.println("El proceso ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
             return 1;
         }
-        else{
-            infra.Inicio.pantalla.append("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
-          System.out.println("El proceso no sido agregado a RAM...PID: "+proceso.getId()+"\n");
+        else if (getUso() - proceso.getMemoria()>=0 && Inicio.cpu.hdd.listaHDD.isEmpty()==false){
+            Proceso enHDD = Inicio.cpu.hdd.listaHDD.get(0);
+            if (getUso()-enHDD.getMemoria() >=0){
+                enHDD.setEstado(1);
+                listaProceso.add(enHDD);
+                Inicio.cpu.hdd.sacarProceso(enHDD.getId());
+                setUso(-enHDD.getMemoria());
+                infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+enHDD.getId()+"\n");
+                String p=  Integer.toString(enHDD.getId());
+                //Inicio.ram.add(p);
+                System.out.println("El proceso ha sido agregado a RAM...PID: "+enHDD.getId()+"\n");
+                agregarProceso(proceso);
+                return 1;
+            }
+        }
+          infra.Inicio.pantalla.append("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
+          System.out.println("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
           return -1;
         }
 
-    }
+    
     
     public Proceso verificarBloqueados(){
         for (int i=0;i<listaProceso.size();i++){
@@ -85,8 +97,8 @@ public class RAM {
     }
 
     public Proceso sacarProceso(int id){
-        int largo = listaProceso.size();
-        for(int i =0; i<largo;i++){
+        int largo = listaProceso.size()-1;
+        for(int i =0; i<=largo;i++){
             Proceso proceso = listaProceso.get(i);
             if (proceso.getId()==id){
                 listaProceso.remove(proceso);

@@ -10,7 +10,7 @@ import java.util.LinkedList;
  *
  * @author JuanDiego
  */
-public class Proceso {
+public abstract class Proceso {
     private int id;
     private int estado;
     private int memoria;
@@ -18,14 +18,14 @@ public class Proceso {
     private int tiempo;
     private LinkedList listaRecursos = new LinkedList();
     private int ja =0;
+    private int context;
+    private int cantidadEjecuciones;
 
 
-
-    public Proceso(int id, int estado, int memoria, int codigo, int tiempo){
+    public Proceso(int id, int estado, int memoria, int tiempo, int context, int cantidadEjecuciones){
         this.id= id;
         this.estado= estado;
         this.memoria=memoria;
-        this.codigo= codigo;
         this.tiempo= tiempo;
         
         this.listaRecursos= listaRecursos;
@@ -34,9 +34,27 @@ public class Proceso {
     public int getId(){
         return this.id;
     }
+    
+    public void setContext(int context){
+        this.context = context;
+    }
+    
+    public void reducirEjecucion(){
+        this.cantidadEjecuciones = this.cantidadEjecuciones--;
+    }
+
+    public int getContext(){
+        return this.context;
+    }
+        
     public void setId(int id){
         this.id=id;
     }
+    
+    public int getCantidadEjecuciones(){
+	return this.cantidadEjecuciones;
+    }
+    
     public int getEstado(){
         return this.estado;
     }
@@ -69,13 +87,6 @@ public class Proceso {
         this.tiempo= tiempo;
     }
     
-    public int Procesos(int indice, int parametro){
-        if (indice==1){
-        }
-        else if (indice==2){
-        }
-        else if (indice==3){
-        }
-        return 1;
-    }
+    //se implementa en cada proceso
+    public abstract void execute();
 }

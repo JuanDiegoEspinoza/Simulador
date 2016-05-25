@@ -15,8 +15,7 @@ import Estructuras.Array;
  */
 public class HDD {
     private int uso;
-    private ArrayList<Proceso> listaHDD;
-    private Array lista;
+    public ArrayList<Proceso> listaHDD;
     private int porcentaje;
 
     public HDD(int tamano){
@@ -56,12 +55,13 @@ public class HDD {
     }
 
 
-    public void sacarProceso(int id, int estado){
+    public void sacarProceso(int id){
         int largo = listaHDD.size();
         for(int i =0; i<largo;i++){
             Proceso proceso = listaHDD.get(i);
             if (proceso.getId()==id){
-                listaHDD.remove(id);
+                int pos =listaHDD.indexOf(proceso);
+                listaHDD.remove(pos);
                 setUso(proceso.getMemoria());
                 return;
             }
