@@ -47,7 +47,7 @@ public class Dispatcher  extends CPU implements Runnable{
          System.out.println("");
             if(ram.getLista().isEmpty()==false){
                 int e=ram.getLista().size()-1;
-                for(int i=0;i<=e;i++){
+                for(int i=0;i<e;i++){
                     Proceso p = ram.getLista().get(i);
                     if(true){//p.getEstado()==1){
                         try {
