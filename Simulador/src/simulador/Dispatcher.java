@@ -7,6 +7,8 @@ package simulador;
 
 import Estructuras.Queue;
 import infra.Inicio;
+import static infra.Inicio.cpu;
+import static infra.Inicio.ram;
 import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Map;
@@ -58,8 +60,16 @@ public class Dispatcher  extends CPU implements Runnable{
                             infra.Inicio.cpu.terminados.enqueue(proc);
                             MISS();
                             infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>>\n");
-                            infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
-                            infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
+                            
+                            //Define las "listas" donde se visualizaran los pids en interfaz 
+                            infra.Inicio.ram.setModel(cpu.getListaItemsRam());
+                            infra.Inicio.hdd.setModel(cpu.getListaItemsHdd());
+                
+                            //Muestra la lista de los pids en interfaz
+                            infra.Inicio.JListRam.addElement(cpu.ram);
+                            infra.Inicio.JListHDD.addElement(cpu.hdd);
+                            //infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
+                            //infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
                             
                             //MISS();
                             

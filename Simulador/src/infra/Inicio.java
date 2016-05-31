@@ -6,6 +6,9 @@
 package infra;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import simulador.CPU;
 import simulador.Proceso;
 import simulador.*;
@@ -24,12 +27,18 @@ public class Inicio extends javax.swing.JFrame {
     private CronometroAt h;
     public static CPU cpu;
     private static int id;
+    public int flag;
+    public static DefaultListModel JListRam;
+    public static DefaultListModel JListHDD;
     
     
     public Inicio() {
         h = new CronometroAt();
         initComponents();
         id = 0;
+        flag = 0;
+        JListRam = new DefaultListModel();
+        JListHDD = new DefaultListModel();
         
     }
 
@@ -79,12 +88,12 @@ public class Inicio extends javax.swing.JFrame {
         semaforo = new javax.swing.JTextField();
         jSeparator12 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        disco = new javax.swing.JTextArea();
         jSeparator13 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         ram = new javax.swing.JList<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        hdd = new javax.swing.JList<>();
 
         jButton2.setText("Iniciar Proceso 1");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -200,10 +209,6 @@ public class Inicio extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 51, 204));
         jLabel5.setText("Memoria RAM");
 
-        disco.setColumns(20);
-        disco.setRows(5);
-        jScrollPane6.setViewportView(disco);
-
         jLabel6.setForeground(new java.awt.Color(0, 51, 204));
         jLabel6.setText("Disco Duro");
 
@@ -213,6 +218,15 @@ public class Inicio extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(ram);
+        ram.getAccessibleContext().setAccessibleParent(ram);
+
+        hdd.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        hdd.setToolTipText("");
+        jScrollPane5.setViewportView(hdd);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -243,12 +257,15 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel5)
-                                    .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(85, 85, 85)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -280,7 +297,7 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGap(102, 102, 102)
                                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,13 +306,13 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(parametroProceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(p1)
                             .addComponent(p2)
                             .addComponent(p3)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 39, Short.MAX_VALUE)
+                        .addGap(0, 41, Short.MAX_VALUE)
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,14 +320,15 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(jSeparator12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -324,8 +342,8 @@ public class Inicio extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel7))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -340,7 +358,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                             .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSeparator5)
                     .addComponent(jSeparator9)
@@ -360,7 +378,7 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 59, Short.MAX_VALUE))
         );
 
         pack();
@@ -389,18 +407,39 @@ public class Inicio extends javax.swing.JFrame {
 
     private void p1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p1ActionPerformed
         //id, estado, memoria, tiempo, context, cantidadEjecuciones{
-        id+=1;
-        int parametro = Integer.parseInt(parametroProceso.getText());
-        Proceso proceso1 = new P1(id,0,345,5,parametro,0);
-
-        proceso1.execute();
+        if (flag==1){
         
-        pantalla.append("<<>>Proceso 1 inicia<<>>.\tPID: 0000"+id +" \n\t\tDuración: 5s"  );
-        pantalla.append("\n\t\tUtilización: 345 MB\n");
-        cpu.agregarProceso(proceso1);
-        System.out.println("ListaHDD: "+cpu.hdd.listaHDD.toString());
-        System.out.println("ListaHDD: "+cpu.ram.listaProceso.toString());
-        //espera();
+            try{
+                id+=1;
+                int parametro = Integer.parseInt(parametroProceso.getText());
+                Proceso proceso1 = new P1(id,0,345,5,parametro,0);
+
+                proceso1.execute();
+
+                pantalla.append("<<>>Proceso 1 inicia<<>>.\tPID: 0000"+id +" \n\t\tDuración: 5s"  );
+                pantalla.append("\n\t\tUtilización: 345 MB\n");
+                cpu.agregarProceso(proceso1);
+                System.out.println("ListaHDD: "+cpu.hdd.listaHDD.toString());
+                System.out.println("ListaHDD: "+cpu.ram.listaProceso.toString());
+                //espera();
+                
+                //Define las "listas" donde se visualizaran los pids en interfaz 
+                ram.setModel(cpu.getListaItemsRam());
+                hdd.setModel(cpu.getListaItemsHdd());
+                
+                //Muestra la lista de los pids en interfaz
+                JListRam.addElement(cpu.ram);
+                JListHDD.addElement(cpu.hdd);
+                
+            }
+            catch (Exception e){
+                JOptionPane.showMessageDialog(pantalla, "Ingrese el parametro solicitado","Error de Datos", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(pantalla, "Debe iniciar el programa","Error de Inicio", JOptionPane.WARNING_MESSAGE);
+           
+        }
         
         
     }//GEN-LAST:event_p1ActionPerformed
@@ -425,20 +464,30 @@ public String getTime(){
     private void p2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p2ActionPerformed
         // TODO add your handling code here:
         ////id, estado, memoria, tiempo, context, cantidadEjecuciones{
-        id+=1;
-        
-        //CPUcrearNuevoProceso(id);
-        int parametro = Integer.parseInt(parametroProceso.getText());
-        Proceso proceso2 = new P2(id,0,500,15,parametro,0);
-        proceso2.execute();
-        
-        
-        pantalla.append(">>Proceso 2 inicia. \n\tPID: 0000"+id +" \n\tDurará: 10 segundos"  );
-        
-        pantalla.append("\n\t Utilizará 500 MB\n\t");
-        cpu.agregarProceso(proceso2);
-        //espera();
-        cpu.verMap();
+        if (flag==1){
+            try{
+                id+=1;
+
+                //CPUcrearNuevoProceso(id);
+                int parametro = Integer.parseInt(parametroProceso.getText());
+                Proceso proceso2 = new P2(id,0,500,15,parametro,0);
+                proceso2.execute();
+
+
+                pantalla.append(">>Proceso 2 inicia. \n\tPID: 0000"+id +" \n\tDurará: 10 segundos"  );
+
+                pantalla.append("\n\t Utilizará 500 MB\n\t");
+                cpu.agregarProceso(proceso2);
+                //espera();
+                cpu.verMap();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(pantalla, "Ingrese el parametro solicitado","Error de Datos", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(pantalla, "Debe iniciar el programa","Error de Inicio", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_p2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -447,12 +496,14 @@ public String getTime(){
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+         
          jButton9.setVisible(false);
          h.hilo.start();
          semaforo.setBackground(Color.green);
          cpu = new CPU();
             Thread d= new Thread(new Dispatcher(), "hilo" );
             d.start();
+            flag = 1;
          
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -538,8 +589,8 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea disco;
     private javax.swing.JLabel etiq;
+    public static javax.swing.JList<String> hdd;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -558,7 +609,7 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;

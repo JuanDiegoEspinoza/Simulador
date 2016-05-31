@@ -4,9 +4,11 @@ import simulador.Proceso;
 import simulador.RAM;
 import simulador.HDD;
 import Estructuras.Queue;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.LinkedList;
 import java.util.HashMap;
+import javax.swing.DefaultListModel;
 import simulador.Hilo;
 
 public class CPU{
@@ -37,6 +39,24 @@ public class CPU{
         if (ram.getUso())       
     }*/
        
+    public DefaultListModel getListaItemsRam(){
+        DefaultListModel jaja = new DefaultListModel();
+        int i = ram.listaProceso.size();
+        for (int e=0;e<i;e++){
+            jaja.addElement(ram.listaProceso.get(e).getId());
+        }
+        return jaja;
+    }
+    
+    public DefaultListModel getListaItemsHdd(){
+        DefaultListModel jaja = new DefaultListModel();
+        int i = hdd.listaHDD.size();
+        for (int e=0;e<i;e++){
+            jaja.addElement(hdd.listaHDD.get(e).getId());
+        }
+        return jaja;
+    }
+    
     public void agregarProceso(Proceso proceso){
         int valor2 = 0;
         int valor = ram.agregarProceso(proceso);
