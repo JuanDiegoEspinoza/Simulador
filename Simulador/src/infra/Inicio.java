@@ -30,8 +30,8 @@ public class Inicio extends javax.swing.JFrame {
     public int flag;
     public static DefaultListModel JListRam;
     public static DefaultListModel JListHDD;
-    
-    
+
+
     public Inicio() {
         h = new CronometroAt();
         initComponents();
@@ -39,7 +39,7 @@ public class Inicio extends javax.swing.JFrame {
         flag = 0;
         JListRam = new DefaultListModel();
         JListHDD = new DefaultListModel();
-        
+
     }
 
     /**
@@ -61,9 +61,9 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        p2 = new javax.swing.JButton();
-        p1 = new javax.swing.JButton();
-        p3 = new javax.swing.JButton();
+        Proceso2 = new javax.swing.JButton();
+        Proceso1 = new javax.swing.JButton();
+        Proceso3 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
@@ -133,24 +133,24 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
-        p2.setText("Iniciar Proceso 2");
-        p2.addActionListener(new java.awt.event.ActionListener() {
+        Proceso2.setText("Iniciar Proceso 2");
+        Proceso2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                p2ActionPerformed(evt);
+                Proceso2ActionPerformed(evt);
             }
         });
 
-        p1.setText("Iniciar Proceso 1");
-        p1.addActionListener(new java.awt.event.ActionListener() {
+        Proceso1.setText("Iniciar Proceso 1");
+        Proceso1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                p1ActionPerformed(evt);
+                Proceso1ActionPerformed(evt);
             }
         });
 
-        p3.setText("Iniciar Proceso 3");
-        p3.addActionListener(new java.awt.event.ActionListener() {
+        Proceso3.setText("Iniciar Proceso 3");
+        Proceso3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                p3ActionPerformed(evt);
+                Proceso3ActionPerformed(evt);
             }
         });
 
@@ -213,7 +213,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel6.setText("Disco Duro");
 
         ram.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = {  };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -221,7 +221,7 @@ public class Inicio extends javax.swing.JFrame {
         ram.getAccessibleContext().setAccessibleParent(ram);
 
         hdd.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = {  };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -245,11 +245,11 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGap(23, 23, 23)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(p1)
+                                        .addComponent(Proceso1)
                                         .addGap(50, 50, 50)
-                                        .addComponent(p2)
+                                        .addComponent(Proceso2)
                                         .addGap(45, 45, 45)
-                                        .addComponent(p3))
+                                        .addComponent(Proceso3))
                                     .addComponent(parametroProceso, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -308,9 +308,9 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(parametroProceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(p1)
-                            .addComponent(p2)
-                            .addComponent(p3)))
+                            .addComponent(Proceso1)
+                            .addComponent(Proceso2)
+                            .addComponent(Proceso3)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 41, Short.MAX_VALUE)
                         .addComponent(jLabel5)))
@@ -400,15 +400,15 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void p3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p3ActionPerformed
+    private void Proceso3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proceso3ActionPerformed
         // TODO add your handling code here:
         ////ZOrrraaaaa
-    }//GEN-LAST:event_p3ActionPerformed
+    }//GEN-LAST:event_Proceso3ActionPerformed
 
-    private void p1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p1ActionPerformed
+    private void Proceso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proceso1ActionPerformed
         //id, estado, memoria, tiempo, context, cantidadEjecuciones{
         if (flag==1){
-        
+
             try{
                 id+=1;
                 int parametro = Integer.parseInt(parametroProceso.getText());
@@ -419,18 +419,18 @@ public class Inicio extends javax.swing.JFrame {
                 pantalla.append("<<>>Proceso 1 inicia<<>>.\tPID: 0000"+id +" \n\t\tDuración: 5s"  );
                 pantalla.append("\n\t\tUtilización: 345 MB\n");
                 cpu.agregarProceso(proceso1);
-                System.out.println("ListaHDD: "+cpu.hdd.listaHDD.toString());
-                System.out.println("ListaHDD: "+cpu.ram.listaProceso.toString());
+                //System.out.println("ListaHDD: "+cpu.hdd.listaHDD.toString());
+                //System.out.println("ListaHDD: "+cpu.ram.listaProceso.toString());
                 //espera();
-                
-                //Define las "listas" donde se visualizaran los pids en interfaz 
+
+                //Define las "listas" donde se visualizaran los pids en interfaz
                 ram.setModel(cpu.getListaItemsRam());
                 hdd.setModel(cpu.getListaItemsHdd());
-                
+
                 //Muestra la lista de los pids en interfaz
-                JListRam.addElement(cpu.ram);
-                JListHDD.addElement(cpu.hdd);
-                
+                //JListRam.addElement(cpu.ram);
+                //JListHDD.addElement(cpu.hdd);
+
             }
             catch (Exception e){
                 JOptionPane.showMessageDialog(pantalla, "Ingrese el parametro solicitado","Error de Datos", JOptionPane.ERROR_MESSAGE);
@@ -438,30 +438,30 @@ public class Inicio extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(pantalla, "Debe iniciar el programa","Error de Inicio", JOptionPane.WARNING_MESSAGE);
-           
+
         }
-        
-        
-    }//GEN-LAST:event_p1ActionPerformed
+
+
+    }//GEN-LAST:event_Proceso1ActionPerformed
 public String getTime(){
     return etiq.getText();
 }
     private void prueba(){
-         
+
     pantalla.append("\n>>Proceso 1 inicia:  "+ etiq.getText()+"\n");
 }
-    private void espera(){ 
+    private void espera(){
     try{
         //wait(1000);
-        pantalla.append(">>Proceso 1 termina:  "+ etiq.getText()+"\n");  
+        pantalla.append(">>Proceso 1 termina:  "+ etiq.getText()+"\n");
     }
     catch (Exception e) {
     // Mensaje en caso de que falle
     System.out.println("fallo");
     }
 }
-    
-    private void p2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p2ActionPerformed
+
+    private void Proceso2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proceso2ActionPerformed
         // TODO add your handling code here:
         ////id, estado, memoria, tiempo, context, cantidadEjecuciones{
         if (flag==1){
@@ -479,7 +479,7 @@ public String getTime(){
                 pantalla.append("\n\t Utilizará 500 MB\n\t");
                 cpu.agregarProceso(proceso2);
                 //espera();
-                cpu.verMap();
+                //cpu.verMap();
             }
             catch(Exception e){
                 JOptionPane.showMessageDialog(pantalla, "Ingrese el parametro solicitado","Error de Datos", JOptionPane.ERROR_MESSAGE);
@@ -488,7 +488,7 @@ public String getTime(){
         else{
             JOptionPane.showMessageDialog(pantalla, "Debe iniciar el programa","Error de Inicio", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_p2ActionPerformed
+    }//GEN-LAST:event_Proceso2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
@@ -496,7 +496,7 @@ public String getTime(){
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-         
+
          jButton9.setVisible(false);
          h.hilo.start();
          semaforo.setBackground(Color.green);
@@ -504,7 +504,7 @@ public String getTime(){
             Thread d= new Thread(new Dispatcher(), "hilo" );
             d.start();
             flag = 1;
-         
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void parametroProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parametroProcesoActionPerformed
@@ -540,7 +540,7 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
                         hora++;//y aumenta una hora
                     }
                     ds++;//aumentan las decimas de segundo
-                    
+
                     etiq.setText(hora + ":" + min + ":" + seg);//se muestra en el jlabel
 
                     hilo.sleep(10);//que duerma una decima de segundo
@@ -549,15 +549,15 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
                 System.out.println(ie.getMessage());
             }
         }
-    
+
 };}
-      
-       
+
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -576,19 +576,22 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
             java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-       
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                
+
+
                 new Inicio().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Proceso1;
+    private javax.swing.JButton Proceso2;
+    private javax.swing.JButton Proceso3;
     private javax.swing.JLabel etiq;
     public static javax.swing.JList<String> hdd;
     private javax.swing.JButton jButton2;
@@ -625,9 +628,6 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JButton p1;
-    private javax.swing.JButton p2;
-    private javax.swing.JButton p3;
     public static javax.swing.JTextArea pantalla;
     private javax.swing.JTextField parametroProceso;
     public static javax.swing.JList<String> ram;

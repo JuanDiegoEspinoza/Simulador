@@ -116,11 +116,11 @@
                                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="p1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="Proceso1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                          <Component id="p2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="Proceso2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                          <Component id="p3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="Proceso3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="parametroProceso" min="-2" pref="272" max="-2" attributes="0"/>
                                   </Group>
@@ -203,9 +203,9 @@
                           <Component id="parametroProceso" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="p1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="p2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="p3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Proceso1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Proceso2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Proceso3" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -280,28 +280,28 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="p2">
+        <Component class="javax.swing.JButton" name="Proceso2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Iniciar Proceso 2"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Proceso2ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="p1">
+        <Component class="javax.swing.JButton" name="Proceso1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Iniciar Proceso 1"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Proceso1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="p3">
+        <Component class="javax.swing.JButton" name="Proceso3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Iniciar Proceso 3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Proceso3ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">

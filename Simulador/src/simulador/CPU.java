@@ -33,12 +33,12 @@ public class CPU{
         System.out.println(paginacion.values());
         System.out.println(paginacion.entrySet());
     }
-    
-    
+
+
    /* public void crearNuevoProceso(int id){
-        if (ram.getUso())       
+        if (ram.getUso())
     }*/
-       
+
     public DefaultListModel getListaItemsRam(){
         DefaultListModel jaja = new DefaultListModel();
         int i = ram.listaProceso.size();
@@ -47,7 +47,7 @@ public class CPU{
         }
         return jaja;
     }
-    
+
     public DefaultListModel getListaItemsHdd(){
         DefaultListModel jaja = new DefaultListModel();
         int i = hdd.listaHDD.size();
@@ -56,14 +56,14 @@ public class CPU{
         }
         return jaja;
     }
-    
+
     public void agregarProceso(Proceso proceso){
         int valor2 = 0;
         int valor = ram.agregarProceso(proceso);
         //Si no hay espacio en la ram entonces
         if (valor==-1){
             Proceso x= ram.sacarBloqueado();    //Saco los procesos bloqueados de la ram
-        
+
             if (x!=null){   //Si si hay procesos bloquados entonces
                 hdd.agregarProceso(x); //Pagino el proceso
                 agregarProceso(proceso); //E intento de nuevo meterlo a la RAM
@@ -72,29 +72,27 @@ public class CPU{
                 infra.Inicio.pantalla.append("\tRAM no cuenta con suficientes recursos \n");
                 //proceso.setEstado(0);
                 valor2 = hdd.agregarProceso(proceso);
-              
+
                 if (valor2==-1){
                     infra.Inicio.pantalla.append("\tEl HDD no cuenta con suficientes recursos \n");
-                    System.out.println("El HDD no cuenta con suficientes recursos");
+                    //System.out.println("El HDD no cuenta con suficientes recursos");
                 }
-      
+
                 else{
-                    paginacion.put(proceso.getId(), valor2);
+                    paginacion.put(proceso.getId(), proceso.getPosicion());
                     //if (proceso.getEstado()==1){
                         hdd.listaHDD.add(proceso);
-                        
+
                     }
                     //else if (proceso.getEstado()==0){
                       //  colaBlock.enqueue(proceso);
                     //}
                 }
             }
-              verMap();
+              //verMap();
         }
-        
-        
 
-      
+
+
+
     }
-    
-  

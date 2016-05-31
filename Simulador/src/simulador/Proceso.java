@@ -20,6 +20,7 @@ public abstract class Proceso {
     private int ja =0;
     private int context;
     private int cantidadEjecuciones;
+    private int posicion;
 
 
     public Proceso(int id, int estado, int memoria, int tiempo, int context, int cantidadEjecuciones){
@@ -27,18 +28,26 @@ public abstract class Proceso {
         this.estado= estado;
         this.memoria=memoria;
         this.tiempo= tiempo;
-        
+
         this.listaRecursos= listaRecursos;
     }
 
     public int getId(){
         return this.id;
     }
-    
+
+    public void setPosicion(int pos){
+      this.posicion = pos;
+    }
+
+    public int getPosicion(){
+      return this.posicion;
+    }
+
     public void setContext(int context){
         this.context = context;
     }
-    
+
     public void reducirEjecucion(){
         this.cantidadEjecuciones = this.cantidadEjecuciones--;
     }
@@ -46,15 +55,15 @@ public abstract class Proceso {
     public int getContext(){
         return this.context;
     }
-        
+
     public void setId(int id){
         this.id=id;
     }
-    
+
     public int getCantidadEjecuciones(){
 	return this.cantidadEjecuciones;
     }
-    
+
     public int getEstado(){
         return this.estado;
     }
@@ -86,7 +95,7 @@ public abstract class Proceso {
     public void setTiempo(int tiempo){
         this.tiempo= tiempo;
     }
-    
+
     //se implementa en cada proceso
     public abstract void execute();
 }

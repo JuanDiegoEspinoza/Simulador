@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import simulador.Proceso;
 import Estructuras.Array;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,18 +41,19 @@ public class HDD {
     public void setPorcentaje(int porcentaje){
         this.porcentaje+=porcentaje;
     }
-    
+
     //Devuelve la posicion de la lista donde se ingreso el proceso, para poder paginarlo
     public int agregarProceso(Proceso proceso){
-        if (getUso()-proceso.getMemoria()>0){
+        if (getUso()-proceso.getMemoria()>=0){
             listaHDD.add(proceso);
             setUso(-proceso.getMemoria());
             infra.Inicio.pantalla.append("\tProceso ha sido paginado PID: "+proceso.getId()+"\n");
-            System.out.println("\tProceso ha sido paginado PID: "+proceso.getId()+"\n");
-            return listaHDD.size()-1;
+            //System.out.println("\tProceso ha sido paginado PID: "+proceso.getId()+"\n");
+            proceso.setPosicion(listaHDD.size()-1);
+            return 1;
         }
-        infra.Inicio.pantalla.append("\tProceso no ha sido paginado \nPID: "+proceso.getId()+"\n");
-        System.out.println("\tProceso no ha sido paginadoPID: "+proceso.getId()+"\n");
+        //infra.Inicio.pantalla.append("\tProceso no ha sido paginado \nPID: "+proceso.getId()+"\n");
+        //System.out.println("\tProceso no ha sido paginadoPID: "+proceso.getId()+"\n");
         return -1;
     }
 
@@ -60,8 +63,7 @@ public class HDD {
         for(int i =0; i<largo;i++){
             Proceso proceso = listaHDD.get(i);
             if (proceso.getId()==id){
-                int pos =listaHDD.indexOf(proceso);
-                listaHDD.remove(pos);
+                listaHDD.remove(proceso);
                 setUso(proceso.getMemoria());
                 return;
             }

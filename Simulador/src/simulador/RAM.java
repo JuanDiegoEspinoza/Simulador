@@ -17,28 +17,28 @@ import java.util.*;
  */
 public class RAM {
 
-   
+
     public ArrayList<Proceso> listaProceso;
- 
+
     private int uso;
 
 
     public RAM(int tamano){
         listaProceso = new ArrayList<Proceso>();
         this.uso=tamano;
-       
+
     }
 
-    
+
     public void setUso(int uso){
         this.uso +=uso;
     }
-    
+
     public int getUso(){
         return this.uso;
     }
 
-  
+
 
     public Proceso BuscarProceso(int id){
         int largoLista = this.listaProceso.size();
@@ -53,7 +53,7 @@ public class RAM {
     }
 
     public int agregarProceso(Proceso proceso){
-        if (getUso() - proceso.getMemoria()>=0 && Inicio.cpu.hdd.listaHDD.isEmpty()){
+        if ((getUso() - proceso.getMemoria()>=0) && (Inicio.cpu.hdd.listaHDD.isEmpty())){
             proceso.setEstado(1);
             listaProceso.add(proceso);
             setUso(-proceso.getMemoria());
@@ -73,24 +73,28 @@ public class RAM {
                 infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+enHDD.getId()+"\n");
                 String p=  Integer.toString(enHDD.getId());
                 //Inicio.ram.add(p);
-                System.out.println("El proceso ha sido agregado a RAM...PID: "+enHDD.getId()+"\n");
+                //System.out.println("El proceso ha sido agregado a RAM...PID: "+enHDD.getId()+"\n");
                 agregarProceso(proceso);
                 return 1;
             }
         }
+        else{
           infra.Inicio.pantalla.append("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
-          System.out.println("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
+          //System.out.println("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
           return -1;
         }
+        return 0;
+    }
+        
 
-    
-    
+
+
     public Proceso verificarBloqueados(){
         for (int i=0;i<listaProceso.size();i++){
             if(listaProceso.get(i).getEstado()==0){
                 sacarProceso(listaProceso.get(i).getId());
                 return listaProceso.get(i);
-            } 
+            }
             return null; //-1 indica que no hay bloqueados
         }
          return null;
@@ -103,7 +107,7 @@ public class RAM {
             if (proceso.getId()==id){
                 listaProceso.remove(proceso);
                 setUso(proceso.getMemoria());
-                System.out.println("YEAH");
+                //System.out.println("YEAH");
                 System.out.println("Saco:"+proceso.getId());
                 return null;
             }
