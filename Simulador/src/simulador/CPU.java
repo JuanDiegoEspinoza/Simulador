@@ -4,6 +4,8 @@ import simulador.Proceso;
 import simulador.RAM;
 import simulador.HDD;
 import Estructuras.Queue;
+import infra.Inicio;
+import static infra.Inicio.cpu;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.LinkedList;
@@ -19,6 +21,8 @@ public class CPU{
     public Map<Integer, Integer> paginacion;
     public static Queue terminados;
     public Thread thread;
+    public int ejecucion;
+    public int jd;
 
     public CPU(){
         colaBlock = new Queue();
@@ -27,6 +31,8 @@ public class CPU{
         hdd = new HDD(2000);
         paginacion = new HashMap<Integer, Integer>();
         terminados= new Queue();
+        ejecucion = 0;
+        jd=0;
   }
     public void verMap(){
         System.out.println(paginacion.isEmpty());
@@ -91,6 +97,90 @@ public class CPU{
             }
               //verMap();
         }
+    public void MISS(){
+        ArrayList<Proceso> listaHDD = infra.Inicio.cpu.hdd.listaHDD;
+        int largo = listaHDD.size();
+        ArrayList<Proceso> listaRAM = infra.Inicio.cpu.ram.listaProceso;
+        int largoRAM  = listaRAM.size();
+        //MISS
+        if(listaHDD.isEmpty()==false){
+            for(int i=0;i<largo-1;i++){
+
+                Proceso proceso = listaHDD.get(i);
+                if (true){//proceso.getEstado()==0){
+                    proceso.setTiempo(10);
+                    proceso.setEstado(1);
+                    infra.Inicio.cpu.agregarProceso(proceso);
+                    infra.Inicio.cpu.paginacion.remove(proceso.getId());
+                }
+            }
+        }
+    }
+    public void despachador(){
+        System.out.println("zsdhjykyl;");
+        try{
+    
+           if(ram.getLista().isEmpty()==false){
+                int e = ram.getLista().size();
+                for(int i=0;i<e;i++){
+                    Proceso p = ram.getLista().get(i);
+                    if(p.getEstado()==1){//(true){//p.getEstado()==1){
+                        try {
+                            //infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
+                            //infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
+                            infra.Inicio.pantalla.append("\tPROCESO SERA INICIADO. PID: "+p.getId()+"\n");
+
+                            infra.Inicio.pantalla.append("largo hdd: " +infra.Inicio.cpu.hdd.listaHDD.size());
+                            infra.Inicio.pantalla.append("elementos: " +infra.Inicio.cpu.hdd.listaHDD.toString());
+                            
+                            infra.Inicio.pantalla.append("largo ram: " +infra.Inicio.cpu.ram.listaProceso.size());
+                            infra.Inicio.pantalla.append("elementos: " +infra.Inicio.cpu.ram.listaProceso.toString());
+                                  int largooo = infra.Inicio.cpu.ram.listaProceso.size();
+                            System.out.println("PROBANDO______________________");
+                            for (int r=0;r<largooo;r++){
+                                System.out.println("ID: "+infra.Inicio.cpu.ram.listaProceso.get(r).getId());
+                                System.out.println("Estado: "+infra.Inicio.cpu.ram.listaProceso.get(r).getEstado());
+                                
+                            }
+                            System.out.println("SALIENDO+++++++++++++++++");
+
+                            Thread.sleep(p.getTiempo()*1000);
+
+                            Proceso proc = ram.sacarProceso(p.getId());
+                            infra.Inicio.cpu.terminados.enqueue(proc);
+                            MISS();
+                            infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>>\n");
+
+                            //Define las "listas" donde se visualizaran los pids en interfaz
+                            infra.Inicio.ram.setModel(cpu.getListaItemsRam());
+                            infra.Inicio.hdd.setModel(cpu.getListaItemsHdd());
+
+                            //Muestra la lista de los pids en interfaz
+                            infra.Inicio.JListRam.addElement(cpu.ram);
+                            infra.Inicio.JListHDD.addElement(cpu.hdd);
+                            despachador();
+                            //infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
+                            //infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
+
+                            //MISS();
+
+                        } catch (InterruptedException ex) {
+                            System.out.println("ERROR");
+                          //  Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            }
+            else{
+                cpu.ejecucion=0;
+            }
+        }
+        catch(Exception e){
+            
+        }
+          
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 
 
