@@ -28,6 +28,7 @@ public abstract class Proceso {
         this.estado= estado;
         this.memoria=memoria;
         this.tiempo= tiempo;
+        this.context= context;
 
         this.listaRecursos= listaRecursos;
     }

@@ -1,6 +1,7 @@
 package simulador;
 
 
+import infra.Inicio;
 import simulador.Proceso;
 
 public class P1 extends Proceso{
@@ -17,6 +18,7 @@ public class P1 extends Proceso{
         int context = getContext() * 2;
 
 		//cambia el valor del contexto
+        Inicio.result.append("Resultado del PID "+getId()+">>>"+Integer.toString(context)+"\n");
 	setContext(context);
 
 		//toString()
