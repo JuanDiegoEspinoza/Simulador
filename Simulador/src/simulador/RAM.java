@@ -57,10 +57,10 @@ public class RAM {
             proceso.setEstado(1);
             listaProceso.add(proceso);
             setUso(-proceso.getMemoria());
-            infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+proceso.getId()+"\n");
+            infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+proceso.getId()+"\n\n\n");
             String p=  Integer.toString(proceso.getId());
             //Inicio.ram.add(p);
-            System.out.println("El proceso ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
+            //System.out.println("El proceso ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
             Inicio.actualizaInterfaz();
             return 1;
         }
@@ -71,7 +71,7 @@ public class RAM {
                 listaProceso.add(enHDD);
                 Inicio.cpu.hdd.sacarProceso(enHDD.getId());
                 setUso(-enHDD.getMemoria());
-                infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+enHDD.getId()+"\n");
+                infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+enHDD.getId()+"\n\n\n");
                 Inicio.actualizaInterfaz();
                
                 agregarProceso(proceso);
@@ -79,8 +79,6 @@ public class RAM {
             }
         }
         else{
-          infra.Inicio.pantalla.append("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
-          //System.out.println("El proceso no ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
           return -1;
         }
         return 0;

@@ -6,6 +6,7 @@ import simulador.HDD;
 import Estructuras.Queue;
 import infra.Inicio;
 import static infra.Inicio.cpu;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.LinkedList;
@@ -41,13 +42,9 @@ public class CPU{
     }
 
 
-   /* public void crearNuevoProceso(int id){
-        if (ram.getUso())
-    }*/
 
     public DefaultListModel getListaItemsRam(){
         DefaultListModel jaja = new DefaultListModel();
-       //int i = ram.listaProceso.size();
         for (int e=0;e<ram.listaProceso.size();e++){
             jaja.addElement(ram.listaProceso.get(e).getId());
         }
@@ -56,7 +53,6 @@ public class CPU{
 
     public DefaultListModel getListaItemsHdd(){
         DefaultListModel jajahdd = new DefaultListModel();
-        //int i = hdd.listaHDD.size();
         for (int e=0;e<hdd.listaHDD.size();e++){
             jajahdd.addElement(hdd.listaHDD.get(e).getId());
         }
@@ -76,23 +72,22 @@ public class CPU{
             }
             else{
                 infra.Inicio.pantalla.append("\tRAM no cuenta con suficientes recursos \n");
-                //proceso.setEstado(0);
+             
                 valor2 = hdd.agregarProceso(proceso);
 
                 if (valor2==-1){
                     infra.Inicio.pantalla.append("\tEl HDD no cuenta con suficientes recursos \n");
-                    //System.out.println("El HDD no cuenta con suficientes recursos");
+          
                 }
 
                 else{
                     paginacion.put(proceso.getId(), proceso.getPosicion());
                     //if (proceso.getEstado()==1){
                         hdd.listaHDD.add(proceso);
+                        Inicio.actualizaInterfaz();
 
                     }
-                    //else if (proceso.getEstado()==0){
-                      //  colaBlock.enqueue(proceso);
-                    //}
+
                 }
             }
               //verMap();
@@ -110,6 +105,7 @@ public class CPU{
                   if(Inicio.cpu.ram.getUso()-proceso.getMemoria()>=0){
                     proceso.setTiempo(10);
                     proceso.setEstado(1);
+                    Inicio.pantalla.append("MISS PID:"+proceso.getId()+"\n");
                     infra.Inicio.cpu.ram.agregarProceso(proceso);
                     infra.Inicio.cpu.hdd.sacarProceso(proceso.getId());
                     infra.Inicio.cpu.paginacion.remove(proceso.getId());
@@ -126,47 +122,30 @@ public class CPU{
                 int e = ram.getLista().size();
                 for(int i=0;i<e;i++){
                     Proceso p = ram.getLista().get(i);
-                    if(p.getEstado()==1){//(true){//p.getEstado()==1){
+                    if(p.getEstado()==1){
                         try {
-                            //infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
-                            //infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
-                            infra.Inicio.pantalla.append("\tPROCESO SERA INICIADO. PID: "+p.getId()+"\n");
-
-                            //infra.Inicio.pantalla.append("largo hdd: " +infra.Inicio.cpu.hdd.listaHDD.size());
-                            //infra.Inicio.pantalla.append("elementos: " +infra.Inicio.cpu.hdd.listaHDD.toString());
                             
-                           // infra.Inicio.pantalla.append("largo ram: " +infra.Inicio.cpu.ram.listaProceso.size());
-                            //infra.Inicio.pantalla.append("elementos: " +infra.Inicio.cpu.ram.listaProceso.toString());
-                                  int largooo = infra.Inicio.cpu.ram.listaProceso.size();
-                            System.out.println("PROBANDO______________________");
-                            for (int r=0;r<largooo;r++){
-                                System.out.println("ID: "+infra.Inicio.cpu.ram.listaProceso.get(r).getId());
-                                System.out.println("Estado: "+infra.Inicio.cpu.ram.listaProceso.get(r).getEstado());
-                                
-                            }
-                            System.out.println("SALIENDO+++++++++++++++++");
+                            infra.Inicio.pantalla.append("\tPROCESO SERA INICIADO. PID: "+p.getId()+"\n");
+                            
 
+                            int largooo = infra.Inicio.cpu.ram.listaProceso.size();
+                        
                             Thread.sleep(p.getTiempo()*1000);
+                            p.execute();
 
                             Proceso proc = ram.sacarProceso(p.getId());
                             infra.Inicio.cpu.terminados.enqueue(proc);
-                            MISS();
                             infra.Inicio.terminados.append(Integer.toString(p.getId())+"\n");
+                            MISS();
+                            
                             Inicio.actualizaInterfaz();
                             infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>>\n");
+                            if(p.getClass().toString().equals("class simulador.P3")){
+                                Inicio.semaforo.setBackground(Color.green);
+                            }
 
-                            //Define las "listas" donde se visualizaran los pids en interfaz
-                            //infra.Inicio.ram.setModel(cpu.getListaItemsRam());
-                            //infra.Inicio.hdd.setModel(cpu.getListaItemsHdd());
-
-                            //Muestra la lista de los pids en interfaz
-                            //infra.Inicio.JListRam.addElement(cpu.ram);
-                            //infra.Inicio.JListHDD.addElement(cpu.hdd);
                             despachador();
-                            //infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
-                            //infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
 
-                            //MISS();
 
                         } catch (InterruptedException ex) {
                             System.out.println("ERROR");

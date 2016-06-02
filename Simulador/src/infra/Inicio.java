@@ -422,11 +422,11 @@ public class Inicio extends javax.swing.JFrame {
                 int parametro = Integer.parseInt(parametroProceso.getText());
                 Proceso proceso3 = new P3(id,0,600,15,parametro,0);
 
-                proceso3.execute();
+       
                
                 pantalla.append("<<>>Proceso 1 inicia<<>>.\tPID: 0000"+id +" \n\t\tDuración: 15s"  );
                 pantalla.append("\n\t\tUtilización: 600 MB\n");
-                semaforo.setBackground(Color.red);
+                //semaforo.setBackground(Color.red);
                 
                 cpu.agregarProceso(proceso3);
                 
@@ -458,10 +458,12 @@ public class Inicio extends javax.swing.JFrame {
                 int parametro = Integer.parseInt(parametroProceso.getText());
                 Proceso proceso1 = new P1(id,0,345,5,parametro,0);
 
-                proceso1.execute();
+                
                
-                pantalla.append("<<>>Proceso 1 inicia<<>>.\tPID: 0000"+id +" \n\t\tDuración: 5s"  );
-                pantalla.append("\n\t\tUtilización: 345 MB\n");
+                
+               pantalla.append("<<>>Proceso 1 inicia<<>>.\tPID: 0000"+id +" \n\t\tDuración: 5s"  );
+               pantalla.append("clase:"+proceso1.getClass().toString()+" \n"  ); 
+               pantalla.append("\n\t\tUtilización: 345 MB\n");
                 cpu.agregarProceso(proceso1);
                 
                 if(cpu.ejecucion==0){
@@ -517,7 +519,7 @@ public String getTime(){
                 //CPUcrearNuevoProceso(id);
                 int parametro = Integer.parseInt(parametroProceso.getText());
                 Proceso proceso2 = new P2(id,0,500,15,parametro,0);
-                proceso2.execute();
+            
                 
 
 
@@ -682,7 +684,7 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
     private javax.swing.JTextField parametroProceso;
     public static javax.swing.JList<String> ram;
     public static javax.swing.JTextArea result;
-    private javax.swing.JTextField semaforo;
+    public static javax.swing.JTextField semaforo;
     public static javax.swing.JTextArea terminados;
     // End of variables declaration//GEN-END:variables
 }
