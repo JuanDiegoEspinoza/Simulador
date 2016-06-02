@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import simulador.Proceso;
 import Estructuras.Array;
+import infra.Inicio;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -45,15 +46,17 @@ public class HDD {
     //Devuelve la posicion de la lista donde se ingreso el proceso, para poder paginarlo
     public int agregarProceso(Proceso proceso){
         if (getUso()-proceso.getMemoria()>=0){
-            listaHDD.add(proceso);
+            //listaHDD.add(proceso);
             setUso(-proceso.getMemoria());
             infra.Inicio.pantalla.append("\tProceso ha sido paginado PID: "+proceso.getId()+"\n");
+            Inicio.actualizaInterfaz();
             //System.out.println("\tProceso ha sido paginado PID: "+proceso.getId()+"\n");
             proceso.setPosicion(listaHDD.size()-1);
             return 1;
         }
         //infra.Inicio.pantalla.append("\tProceso no ha sido paginado \nPID: "+proceso.getId()+"\n");
         //System.out.println("\tProceso no ha sido paginadoPID: "+proceso.getId()+"\n");
+        Inicio.actualizaInterfaz();
         return -1;
     }
 

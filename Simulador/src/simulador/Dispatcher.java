@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static simulador.CPU.ram;
+//import static simulador.CPU.ram;
 /**
  *
  * @author JuanDiego

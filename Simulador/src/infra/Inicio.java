@@ -85,7 +85,7 @@ public class Inicio extends javax.swing.JFrame {
         jSeparator10 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        terminados = new javax.swing.JTextArea();
         jSeparator11 = new javax.swing.JSeparator();
         etiq = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
@@ -97,9 +97,9 @@ public class Inicio extends javax.swing.JFrame {
         jSeparator13 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ram = new javax.swing.JList<>();
+        ram = new javax.swing.JList<String>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        hdd = new javax.swing.JList<>();
+        hdd = new javax.swing.JList<String>();
 
         jButton2.setText("Iniciar Proceso 1");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -175,11 +175,11 @@ public class Inicio extends javax.swing.JFrame {
         jScrollPane3.setViewportView(pantalla);
 
         jLabel7.setForeground(new java.awt.Color(42, 61, 202));
-        jLabel7.setText("Bloqueados");
+        jLabel7.setText("Terminados");
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane4.setViewportView(jTextArea4);
+        terminados.setColumns(20);
+        terminados.setRows(5);
+        jScrollPane4.setViewportView(terminados);
 
         etiq.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
         etiq.setForeground(new java.awt.Color(22, 237, 40));
@@ -216,20 +216,20 @@ public class Inicio extends javax.swing.JFrame {
         jLabel5.setText("Memoria RAM");
 
         jLabel6.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel6.setText("Disco Duro");
+        jLabel6.setText("Paginacion");
 
-        ram.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        ram.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(ram);
         ram.getAccessibleContext().setAccessibleParent(ram);
 
-        hdd.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        hdd.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", " " };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         hdd.setToolTipText("");
         jScrollPane5.setViewportView(hdd);
@@ -241,67 +241,69 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(Proceso1)
-                                        .addGap(50, 50, 50)
-                                        .addComponent(Proceso2)
-                                        .addGap(45, 45, 45)
-                                        .addComponent(Proceso3))
-                                    .addComponent(parametroProceso, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(85, 85, 85)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(738, 738, 738)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSeparator5)
-                                    .addComponent(semaforo, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                                    .addComponent(jSeparator11))))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(Proceso1)
+                                                .addGap(50, 50, 50)
+                                                .addComponent(Proceso2)
+                                                .addGap(45, 45, 45)
+                                                .addComponent(Proceso3))
+                                            .addComponent(parametroProceso, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(85, 85, 85)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addComponent(etiq, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(102, 102, 102)
-                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(269, 269, 269)
+                                .addGap(738, 738, 738)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jSeparator5)
+                                            .addComponent(semaforo, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel4))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                            .addComponent(jSeparator11))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(71, 71, 71)
+                                        .addComponent(etiq, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(102, 102, 102)
+                                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(269, 269, 269)
+                                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(50, 50, 50)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,7 +345,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -404,8 +406,38 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void Proceso3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proceso3ActionPerformed
-        // TODO add your handling code here:
-        ////ZOrrraaaaa
+          if (flag==1){
+
+            try{
+                id+=1;
+                int parametro = Integer.parseInt(parametroProceso.getText());
+                Proceso proceso3 = new P3(id,0,600,15,parametro,0);
+
+                proceso3.execute();
+               
+                pantalla.append("<<>>Proceso 1 inicia<<>>.\tPID: 0000"+id +" \n\t\tDuración: 15s"  );
+                pantalla.append("\n\t\tUtilización: 600 MB\n");
+                semaforo.setBackground(Color.red);
+                
+                cpu.agregarProceso(proceso3);
+                
+                
+                if(cpu.ejecucion==0){
+                    cpu.ejecucion++;
+                    cpu.jd=1;
+                }
+                
+
+            }
+            catch (Exception e){
+                JOptionPane.showMessageDialog(pantalla, "Ingrese el parametro solicitado","Error de Datos", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(pantalla, "Debe iniciar el programa","Error de Inicio", JOptionPane.WARNING_MESSAGE);
+
+        }
+
     }//GEN-LAST:event_Proceso3ActionPerformed
 
     private void Proceso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proceso1ActionPerformed
@@ -418,7 +450,7 @@ public class Inicio extends javax.swing.JFrame {
                 Proceso proceso1 = new P1(id,0,345,5,parametro,0);
 
                 proceso1.execute();
-
+               
                 pantalla.append("<<>>Proceso 1 inicia<<>>.\tPID: 0000"+id +" \n\t\tDuración: 5s"  );
                 pantalla.append("\n\t\tUtilización: 345 MB\n");
                 cpu.agregarProceso(proceso1);
@@ -427,17 +459,7 @@ public class Inicio extends javax.swing.JFrame {
                     cpu.ejecucion++;
                     cpu.jd=1;
                 }
-                //System.out.println("ListaHDD: "+cpu.hdd.listaHDD.toString());
-                //System.out.println("ListaHDD: "+cpu.ram.listaProceso.toString());
-                //espera();
-
-                //Define las "listas" donde se visualizaran los pids en interfaz
-                ram.setModel(cpu.getListaItemsRam());
-                hdd.setModel(cpu.getListaItemsHdd());
-
-                //Muestra la lista de los pids en interfaz
-                //JListRam.addElement(cpu.ram);
-                //JListHDD.addElement(cpu.hdd);
+                
 
             }
             catch (Exception e){
@@ -468,6 +490,13 @@ public String getTime(){
     System.out.println("fallo");
     }
 }
+    public static void actualizaInterfaz(){
+        //Define las "listas" donde se visualizaran los pids en interfaz
+                ram.setModel(cpu.getListaItemsRam());
+                hdd.setModel(cpu.getListaItemsHdd());
+                
+                
+    }
 
     private void Proceso2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proceso2ActionPerformed
         // TODO add your handling code here:
@@ -480,14 +509,20 @@ public String getTime(){
                 int parametro = Integer.parseInt(parametroProceso.getText());
                 Proceso proceso2 = new P2(id,0,500,15,parametro,0);
                 proceso2.execute();
+                
 
 
                 pantalla.append(">>Proceso 2 inicia. \n\tPID: 0000"+id +" \n\tDurará: 10 segundos"  );
 
                 pantalla.append("\n\t Utilizará 500 MB\n\t");
                 cpu.agregarProceso(proceso2);
-                //espera();
-                //cpu.verMap();
+                
+                if(cpu.ejecucion==0){
+                    cpu.ejecucion++;
+                    cpu.jd=1;
+                }
+                
+               
             }
             catch(Exception e){
                 JOptionPane.showMessageDialog(pantalla, "Ingrese el parametro solicitado","Error de Datos", JOptionPane.ERROR_MESSAGE);
@@ -635,10 +670,10 @@ public boolean issuspended = false;//para saber si el hilo esta suspendido o pau
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea4;
     public static javax.swing.JTextArea pantalla;
     private javax.swing.JTextField parametroProceso;
     public static javax.swing.JList<String> ram;
     private javax.swing.JTextField semaforo;
+    public static javax.swing.JTextArea terminados;
     // End of variables declaration//GEN-END:variables
 }

@@ -61,6 +61,7 @@ public class RAM {
             String p=  Integer.toString(proceso.getId());
             //Inicio.ram.add(p);
             System.out.println("El proceso ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
+            Inicio.actualizaInterfaz();
             return 1;
         }
         else if (getUso() - proceso.getMemoria()>=0 && Inicio.cpu.hdd.listaHDD.isEmpty()==false){
@@ -71,9 +72,8 @@ public class RAM {
                 Inicio.cpu.hdd.sacarProceso(enHDD.getId());
                 setUso(-enHDD.getMemoria());
                 infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+enHDD.getId()+"\n");
-                String p=  Integer.toString(enHDD.getId());
-                //Inicio.ram.add(p);
-                //System.out.println("El proceso ha sido agregado a RAM...PID: "+enHDD.getId()+"\n");
+                Inicio.actualizaInterfaz();
+               
                 agregarProceso(proceso);
                 return 1;
             }

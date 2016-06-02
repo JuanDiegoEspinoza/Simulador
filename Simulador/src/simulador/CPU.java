@@ -16,7 +16,7 @@ import simulador.Hilo;
 public class CPU{
     private Queue colaBlock;
     private Queue colaReady;
-    public  static RAM ram;
+    public  static  RAM ram;
     public HDD hdd;
     public Map<Integer, Integer> paginacion;
     public static Queue terminados;
@@ -28,7 +28,7 @@ public class CPU{
         colaBlock = new Queue();
         colaReady = new Queue();
         ram = new RAM(1000);
-        hdd = new HDD(2000);
+        hdd = new HDD(2000000);
         paginacion = new HashMap<Integer, Integer>();
         terminados= new Queue();
         ejecucion = 0;
@@ -47,20 +47,20 @@ public class CPU{
 
     public DefaultListModel getListaItemsRam(){
         DefaultListModel jaja = new DefaultListModel();
-        int i = ram.listaProceso.size();
-        for (int e=0;e<i;e++){
+       //int i = ram.listaProceso.size();
+        for (int e=0;e<ram.listaProceso.size();e++){
             jaja.addElement(ram.listaProceso.get(e).getId());
         }
         return jaja;
     }
 
     public DefaultListModel getListaItemsHdd(){
-        DefaultListModel jaja = new DefaultListModel();
-        int i = hdd.listaHDD.size();
-        for (int e=0;e<i;e++){
-            jaja.addElement(hdd.listaHDD.get(e).getId());
+        DefaultListModel jajahdd = new DefaultListModel();
+        //int i = hdd.listaHDD.size();
+        for (int e=0;e<hdd.listaHDD.size();e++){
+            jajahdd.addElement(hdd.listaHDD.get(e).getId());
         }
-        return jaja;
+        return jajahdd;
     }
 
     public void agregarProceso(Proceso proceso){
@@ -101,24 +101,26 @@ public class CPU{
         ArrayList<Proceso> listaHDD = infra.Inicio.cpu.hdd.listaHDD;
         int largo = listaHDD.size();
         ArrayList<Proceso> listaRAM = infra.Inicio.cpu.ram.listaProceso;
-        int largoRAM  = listaRAM.size();
         //MISS
         if(listaHDD.isEmpty()==false){
-            for(int i=0;i<largo-1;i++){
-
+            
+            for(int i=0;i<largo;i++){
                 Proceso proceso = listaHDD.get(i);
-                if (true){//proceso.getEstado()==0){
+                
+                  if(Inicio.cpu.ram.getUso()-proceso.getMemoria()>=0){
                     proceso.setTiempo(10);
                     proceso.setEstado(1);
-                    infra.Inicio.cpu.agregarProceso(proceso);
+                    infra.Inicio.cpu.ram.agregarProceso(proceso);
+                    infra.Inicio.cpu.hdd.sacarProceso(proceso.getId());
                     infra.Inicio.cpu.paginacion.remove(proceso.getId());
-                }
+                  }
+                
             }
         }
     }
     public void despachador(){
         System.out.println("zsdhjykyl;");
-        try{
+       try{
     
            if(ram.getLista().isEmpty()==false){
                 int e = ram.getLista().size();
@@ -130,11 +132,11 @@ public class CPU{
                             //infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
                             infra.Inicio.pantalla.append("\tPROCESO SERA INICIADO. PID: "+p.getId()+"\n");
 
-                            infra.Inicio.pantalla.append("largo hdd: " +infra.Inicio.cpu.hdd.listaHDD.size());
-                            infra.Inicio.pantalla.append("elementos: " +infra.Inicio.cpu.hdd.listaHDD.toString());
+                            //infra.Inicio.pantalla.append("largo hdd: " +infra.Inicio.cpu.hdd.listaHDD.size());
+                            //infra.Inicio.pantalla.append("elementos: " +infra.Inicio.cpu.hdd.listaHDD.toString());
                             
-                            infra.Inicio.pantalla.append("largo ram: " +infra.Inicio.cpu.ram.listaProceso.size());
-                            infra.Inicio.pantalla.append("elementos: " +infra.Inicio.cpu.ram.listaProceso.toString());
+                           // infra.Inicio.pantalla.append("largo ram: " +infra.Inicio.cpu.ram.listaProceso.size());
+                            //infra.Inicio.pantalla.append("elementos: " +infra.Inicio.cpu.ram.listaProceso.toString());
                                   int largooo = infra.Inicio.cpu.ram.listaProceso.size();
                             System.out.println("PROBANDO______________________");
                             for (int r=0;r<largooo;r++){
@@ -149,15 +151,17 @@ public class CPU{
                             Proceso proc = ram.sacarProceso(p.getId());
                             infra.Inicio.cpu.terminados.enqueue(proc);
                             MISS();
+                            infra.Inicio.terminados.append(Integer.toString(p.getId())+"\n");
+                            Inicio.actualizaInterfaz();
                             infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>>\n");
 
                             //Define las "listas" donde se visualizaran los pids en interfaz
-                            infra.Inicio.ram.setModel(cpu.getListaItemsRam());
-                            infra.Inicio.hdd.setModel(cpu.getListaItemsHdd());
+                            //infra.Inicio.ram.setModel(cpu.getListaItemsRam());
+                            //infra.Inicio.hdd.setModel(cpu.getListaItemsHdd());
 
                             //Muestra la lista de los pids en interfaz
-                            infra.Inicio.JListRam.addElement(cpu.ram);
-                            infra.Inicio.JListHDD.addElement(cpu.hdd);
+                            //infra.Inicio.JListRam.addElement(cpu.ram);
+                            //infra.Inicio.JListHDD.addElement(cpu.hdd);
                             despachador();
                             //infra.Inicio.pantalla.append("ME cago en la puta HDD: "+infra.Inicio.cpu.hdd.listaHDD.toString());
                             //infra.Inicio.pantalla.append("ME cago en la puta RAM: "+infra.Inicio.cpu.ram.listaProceso.toString());
@@ -175,7 +179,8 @@ public class CPU{
                 cpu.ejecucion=0;
             }
         }
-        catch(Exception e){
+       catch(Exception e){
+           despachador();
             
         }
           
