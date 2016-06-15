@@ -41,8 +41,6 @@ public class CPU{
         System.out.println(paginacion.entrySet());
     }
 
-
-
     public DefaultListModel getListaItemsRam(){
         DefaultListModel jaja = new DefaultListModel();
         for (int e=0;e<ram.listaProceso.size();e++){
@@ -58,6 +56,7 @@ public class CPU{
         }
         return jajahdd;
     }
+    
 
     public void agregarProceso(Proceso proceso){
         int valor2 = 0;
