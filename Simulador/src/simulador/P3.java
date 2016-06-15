@@ -8,7 +8,7 @@ public class P3 extends Proceso{
 	public P3(int id, int estado, int memoria, int tiempo, int context, int cantidadEjecuciones) {
 		
 
-		super(id, estado, memoria, tiempo, context, cantidadEjecuciones);
+		super(id, estado, memoria, tiempo, context, cantidadEjecuciones,3);
 		setEstado(3);
 
 
@@ -37,6 +37,9 @@ public class P3 extends Proceso{
 			}
 		
 	}
+           public int tipo(){
+        return 3;
+    }
 
 
 

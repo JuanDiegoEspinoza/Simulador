@@ -553,6 +553,7 @@ public String getTime(){
                 //CPUcrearNuevoProceso(id);
                 int parametro = Integer.parseInt(parametroProceso.getText());
                 Proceso proceso2 = new P2(id,0,500,15,parametro,0);
+                
             
                 
 

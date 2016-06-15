@@ -21,18 +21,22 @@ public abstract class Proceso {
     private int context;
     private int cantidadEjecuciones;
     private int posicion;
+    public int tipo;
 
 
-    public Proceso(int id, int estado, int memoria, int tiempo, int context, int cantidadEjecuciones){
+    public Proceso(int id, int estado, int memoria, int tiempo, int context, int cantidadEjecuciones, int tipo){
         this.id= id;
         this.estado= estado;
         this.memoria=memoria;
         this.tiempo= tiempo;
         this.context= context;
+        this.tipo= tipo;
 
         this.listaRecursos= listaRecursos;
     }
-
+    public int getTipo(){
+        return this.tipo;
+    }
     public int getId(){
         return this.id;
     }

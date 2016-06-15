@@ -7,7 +7,7 @@ public class P2 extends Proceso{
 	public P2(int id, int estado, int memoria, int tiempo, int context, int cantidadEjecuciones) {
 		
 
-		super(id, estado, memoria, tiempo, context, cantidadEjecuciones);
+		super(id, estado, memoria, tiempo, context, cantidadEjecuciones,2);
 
 	}
 
@@ -32,6 +32,9 @@ public class P2 extends Proceso{
 
 
 	}
+       public int tipo(){
+        return 2;
+    }
 
 
 

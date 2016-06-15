@@ -131,19 +131,39 @@ public class CPU{
                         
                             Thread.sleep(p.getTiempo()*1000);
                             p.execute();
+                             if(p.getTipo()==2){
+                               //  infra.Inicio.cpu.agregarProceso(p);
+                                
+                               Proceso proc = ram.sacarProceso(p.getId());
+                               // infra.Inicio.cpu.terminados.enqueue(proc);
+                              // infra.Inicio.terminados.append(Integer.toString(p.getId())+"\n");
+                                 infra.Inicio.cpu.agregarProceso(p);
+                                MISS();
 
-                            Proceso proc = ram.sacarProceso(p.getId());
-                            infra.Inicio.cpu.terminados.enqueue(proc);
-                            infra.Inicio.terminados.append(Integer.toString(p.getId())+"\n");
-                            MISS();
-                            
-                            Inicio.actualizaInterfaz();
-                            infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>>\n");
-                            if(p.getClass().toString().equals("class simulador.P3")){
-                                Inicio.semaforo.setBackground(Color.green);
-                            }
+                                Inicio.actualizaInterfaz();
+                                infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+ "  El proceso continuara..."+">>>\n");
+                                if(p.getTipo()==3){
+                                    Inicio.semaforo.setBackground(Color.green);
+                                }
 
-                            despachador();
+                        
+                             }
+                             else{
+                                Proceso proc = ram.sacarProceso(p.getId());
+                                infra.Inicio.cpu.terminados.enqueue(proc);
+                                infra.Inicio.terminados.append(Integer.toString(p.getId())+"\n");
+                                MISS();
+
+                                Inicio.actualizaInterfaz();
+                                infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>>\n");
+                                if(p.getTipo()==3){
+                                    Inicio.semaforo.setBackground(Color.green);
+                                }
+
+                               
+                                 
+                             }
+                              despachador();
 
 
                         } catch (InterruptedException ex) {

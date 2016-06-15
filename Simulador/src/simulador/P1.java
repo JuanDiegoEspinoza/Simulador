@@ -8,7 +8,7 @@ public class P1 extends Proceso{
 
 	public P1(int id, int estado, int memoria, int tiempo, int context, int cantidadEjecuciones) {
 		
-		super(id, estado, memoria, tiempo, context, cantidadEjecuciones);
+		super(id, estado, memoria, tiempo, context, cantidadEjecuciones,1);
 
 	}
 
@@ -24,6 +24,9 @@ public class P1 extends Proceso{
 		//toString()
 
 	}
+    public int tipo(){
+        return 1;
+    }
 
 
 
