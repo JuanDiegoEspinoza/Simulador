@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.LinkedList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
+import javax.swing.text.Document;
 import simulador.Hilo;
 
 public class CPU{
@@ -42,19 +43,46 @@ public class CPU{
     }
 
     public DefaultListModel getListaItemsRam(){
-        DefaultListModel jaja = new DefaultListModel();
+        DefaultListModel memoriaRam = new DefaultListModel();
         for (int e=0;e<ram.listaProceso.size();e++){
-            jaja.addElement(ram.listaProceso.get(e).getId());
+            memoriaRam.addElement(ram.listaProceso.get(e).getId());
         }
-        return jaja;
+        return memoriaRam;
     }
 
     public DefaultListModel getListaItemsHdd(){
-        DefaultListModel jajahdd = new DefaultListModel();
+        DefaultListModel discoduro = new DefaultListModel();
         for (int e=0;e<hdd.listaHDD.size();e++){
-            jajahdd.addElement(hdd.listaHDD.get(e).getId());
+            discoduro.addElement(hdd.listaHDD.get(e).getId());
         }
-        return jajahdd;
+        return discoduro;
+    }
+    
+    public DefaultListModel getListaItemsPag(){
+        DefaultListModel paginacion = new DefaultListModel();
+        int tamanoDisco = hdd.listaHDD.size();
+        for(int e=0;e<tamanoDisco;e++){
+            int key = hdd.listaHDD.get(e).getId();
+            int value = infra.Inicio.cpu.paginacion.get(key);
+            String valorPantalla = "PID:"+ key+"---> Dir: "+value;
+            paginacion.addElement(valorPantalla);
+        }
+        return paginacion;
+    }
+    
+    public String getPaginacion(){
+        int i = paginacion.size();
+        int x = 0;
+        if (i!=0){
+            String valores = "PID:\t\tPosición en HDD";
+            while(x<i){
+                valores+=hdd.listaHDD.get(x).getId()+"\t\t";
+                valores+=paginacion.get(hdd.listaHDD.get(x));
+                valores+="\n\n";
+            }   
+            return valores;
+        }
+        return "";
     }
     
 
