@@ -467,7 +467,7 @@ public class Inicio extends javax.swing.JFrame {
                 
                 if(cpu.ejecucion==0){
                     cpu.ejecucion++;
-                    cpu.contador=1;
+                    cpu.jd=1;
                 }
                 
 
@@ -502,7 +502,7 @@ public class Inicio extends javax.swing.JFrame {
                 
                 if(cpu.ejecucion==0){
                     cpu.ejecucion++;
-                    cpu.contador=1;
+                    cpu.jd=1;
                 }
                 
 
@@ -565,7 +565,7 @@ public String getTime(){
                 
                 if(cpu.ejecucion==0){
                     cpu.ejecucion++;
-                    cpu.contador=1;
+                    cpu.jd=1;
                 }
                 
                

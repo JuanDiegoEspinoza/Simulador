@@ -25,17 +25,23 @@ public class Dispatcher  extends CPU implements Runnable{
 
 
     
-    //Metodo utilizado para ejecutar el metodo despachador constantemente
+
     public void dispatch() {
+
         while(true){
-            if(Inicio.cpu.contador==1){
+            System.out.println("");
+            if(Inicio.cpu.jd==1){
+                System.out.println("DEBERIA INICIAR");
                 Inicio.cpu.despachador();
-                Inicio.cpu.contador=3;
+                Inicio.cpu.jd=3;
             }
             
             }
          
         }
+
+    
+
     @Override
     public void run() {
         dispatch();
