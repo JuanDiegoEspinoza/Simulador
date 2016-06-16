@@ -26,6 +26,10 @@ public class HDD {
         this.uso=tamano;
         this.porcentaje=100;
     }
+    
+    /*
+    SETs y GETs de las variables en el constructor
+    */
 
     public void setUso(int uso){
       this.uso += uso;
@@ -42,15 +46,18 @@ public class HDD {
     public void setPorcentaje(int porcentaje){
         this.porcentaje+=porcentaje;
     }
+    
+    /*
+    Fin de SETs y GETs
+    */
 
     //Devuelve la posicion de la lista donde se ingreso el proceso, para poder paginarlo
     public int agregarProceso(Proceso proceso){
+        //Se valida que haya campo en la memoria
         if (getUso()-proceso.getMemoria()>=0){
-     
+            //Se disminuye la cantidad de memoria disponible
             setUso(-proceso.getMemoria());
             infra.Inicio.pantalla.append("\tProceso ha sido paginado PID: "+proceso.getId()+"\n\n\n");
-            
-            //System.out.println("\tProceso ha sido paginado PID: "+proceso.getId()+"\n");\n\n
             proceso.setPosicion(listaHDD.size()-1);
             Inicio.actualizaInterfaz();
             return 1;
@@ -59,33 +66,18 @@ public class HDD {
         return -1;
     }
 
-
+    //Metodo utilizado para eliminar procesos del HDD
     public void sacarProceso(int id){
         int largo = listaHDD.size();
         for(int i =0; i<largo;i++){
             Proceso proceso = listaHDD.get(i);
             if (proceso.getId()==id){
                 listaHDD.remove(proceso);
+                //Se reestablece la cantidad de memoria disponible
                 setUso(proceso.getMemoria());
                 return;
             }
         }
         System.out.println("\tProceso no encontrado...");
     }
-
-    public void setLista(ArrayList<Proceso> lista){
-        this.listaHDD = lista;
-    }
-
-    public Proceso sacarBloqueado(){
-      int largoLista = listaHDD.size();
-      for (int i=0;i<largoLista;i++){
-        if (listaHDD.get(i).getEstado()==1){
-          setUso(listaHDD.get(i).getMemoria());
-          return listaHDD.get(i);
-        }
-      }
-      return null;
-    }
-
 }

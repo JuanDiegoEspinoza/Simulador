@@ -24,7 +24,7 @@ public class CPU{
     public static Queue terminados;
     public Thread thread;
     public int ejecucion;
-    public int jd;
+    public int contador;
 
     public CPU(){
         colaBlock = new Queue();
@@ -34,14 +34,17 @@ public class CPU{
         paginacion = new HashMap<Integer, Integer>();
         terminados= new Queue();
         ejecucion = 0;
-        jd=0;
+        contador=0;
   }
+
+    //Metodo utilizado para visualizar los datos existentes en el archivo de paginación
     public void verMap(){
         System.out.println(paginacion.isEmpty());
         System.out.println(paginacion.values());
         System.out.println(paginacion.entrySet());
     }
 
+    //Metodo utilizado para obtener los procesos en RAM
     public DefaultListModel getListaItemsRam(){
         DefaultListModel memoriaRam = new DefaultListModel();
         for (int e=0;e<ram.listaProceso.size();e++){
@@ -50,6 +53,7 @@ public class CPU{
         return memoriaRam;
     }
 
+    //Metodo utilizado para obtener los procesos almacenados en HDD
     public DefaultListModel getListaItemsHdd(){
         DefaultListModel discoduro = new DefaultListModel();
         for (int e=0;e<hdd.listaHDD.size();e++){
@@ -57,7 +61,8 @@ public class CPU{
         }
         return discoduro;
     }
-    
+
+    //Metodo utilizado para obtener los datos de los procesos paginados
     public DefaultListModel getListaItemsPag(){
         DefaultListModel paginacion = new DefaultListModel();
         int tamanoDisco = hdd.listaHDD.size();
@@ -69,67 +74,70 @@ public class CPU{
         }
         return paginacion;
     }
-    
-    public String getPaginacion(){
-        int i = paginacion.size();
-        int x = 0;
-        if (i!=0){
-            String valores = "PID:\t\tPosición en HDD";
-            while(x<i){
-                valores+=hdd.listaHDD.get(x).getId()+"\t\t";
-                valores+=paginacion.get(hdd.listaHDD.get(x));
-                valores+="\n\n";
-            }   
-            return valores;
-        }
-        return "";
-    }
-    
 
+    //Metodo utilizado para ingresar procesos y ser ejecutados posteriormente
     public void agregarProceso(Proceso proceso){
         int valor2 = 0;
         int valor = ram.agregarProceso(proceso);
-        //Si no hay espacio en la ram entonces
-        if (valor==-1){
-            Proceso x= ram.sacarBloqueado();    //Saco los procesos bloqueados de la ram
 
-            if (x!=null){   //Si si hay procesos bloquados entonces
-                hdd.agregarProceso(x); //Pagino el proceso
-                agregarProceso(proceso); //E intento de nuevo meterlo a la RAM
+        //En caso de que no exista espacio en RAM
+        if (valor==-1){
+            //Elimino de la RAM el primer proceso bloqueado que encuentre
+            Proceso procesoBloqueado= ram.sacarBloqueado();
+
+            //En caso de que SI haya proceso bloqueado
+            if (procesoBloqueado!=null){
+                //Se realiza la paginacion del proceso bloqueado en RAM, se pasa a HDD
+                hdd.agregarProceso(procesoBloqueado);
+                //Ahora con espacio libre en RAM, se intenta ingresar de nuevo
+                agregarProceso(proceso);
             }
+            //En caso de que no hayan procesos bloqueados
             else{
+                //Se muestra mensaje en pantalla de que no hay memoria
                 infra.Inicio.pantalla.append("\tRAM no cuenta con suficientes recursos \n");
-             
+                //Se pagina el proceso ingresado
                 valor2 = hdd.agregarProceso(proceso);
 
+                //En caso de que no exista espacio en HDD
                 if (valor2==-1){
+                    //Se muestra mensaje en pantalla
                     infra.Inicio.pantalla.append("\tEl HDD no cuenta con suficientes recursos \n");
-          
                 }
-
                 else{
+                    //Se ingresan los datos del proceso ingresado
+                    //...en un "archivo" de paginacion
                     paginacion.put(proceso.getId(), proceso.getPosicion());
-                    //if (proceso.getEstado()==1){
-                        hdd.listaHDD.add(proceso);
-                        Inicio.actualizaInterfaz();
-
+                    hdd.listaHDD.add(proceso);
+                    //Se actualiza los valores en la interfaz
+                    Inicio.actualizaInterfaz();
                     }
-
                 }
             }
-              //verMap();
         }
+
+    /*
+    Metodo utilizado para encontrar procesos en HDD que pueden...
+        ser ejecutados en RAM
+    */
+
     public void MISS(){
+        //Obtengo la lista de los procesos en HDD
         ArrayList<Proceso> listaHDD = infra.Inicio.cpu.hdd.listaHDD;
         int largo = listaHDD.size();
         ArrayList<Proceso> listaRAM = infra.Inicio.cpu.ram.listaProceso;
-        //MISS
+
+        //En caso de que la lista no este vacia
         if(listaHDD.isEmpty()==false){
-            
+            //Se realiza la busqueda de los procesos en HDD
             for(int i=0;i<largo;i++){
                 Proceso proceso = listaHDD.get(i);
-                
-                  if(Inicio.cpu.ram.getUso()-proceso.getMemoria()>=0){
+                /*
+                En caso de que el proceso paginado pueda ser ingresado
+                a RAM, debido a la cantidad de memoria disponible
+                */
+                if(Inicio.cpu.ram.getUso()-proceso.getMemoria()>=0){
+                    //Se le reasigna el tiempo al proceso debido al MISS
                     proceso.setTiempo(10);
                     proceso.setEstado(1);
                     Inicio.pantalla.append("MISS PID:"+proceso.getId()+"\n");
@@ -137,63 +145,53 @@ public class CPU{
                     infra.Inicio.cpu.hdd.sacarProceso(proceso.getId());
                     infra.Inicio.cpu.paginacion.remove(proceso.getId());
                   }
-                
+
             }
         }
     }
+    /*Este metodo es utilizado para gestionar la ejecucion de los procesos
+    listos en RAM
+    */
     public void despachador(){
-        System.out.println("zsdhjykyl;");
        try{
-    
+
+           //En caso de que la lista no este vacia
            if(ram.getLista().isEmpty()==false){
                 int e = ram.getLista().size();
                 for(int i=0;i<e;i++){
-                    Proceso p = ram.getLista().get(i);
-                    if(p.getEstado()==1){
+                    //Se obtiene el primer proceso en RAM
+                    Proceso procesoP = ram.getLista().get(i);
+                    //Se evalua si el proceso esta listo para ser ejecutado
+                    if(procesoP.getEstado()==1){
                         try {
-                            
-                            infra.Inicio.pantalla.append("\tPROCESO SERA INICIADO. PID: "+p.getId()+"\n");
-                            
-
+                            //Se ejecuta el proceso
+                            infra.Inicio.pantalla.append("\tPROCESO SERA INICIADO. PID: "+procesoP.getId()+"\n");
                             int largooo = infra.Inicio.cpu.ram.listaProceso.size();
-                        
-                            Thread.sleep(p.getTiempo()*1000);
-                            p.execute();
-                             if(p.getTipo()==2){
-                               //  infra.Inicio.cpu.agregarProceso(p);
-                                
-                               Proceso proc = ram.sacarProceso(p.getId());
-                               // infra.Inicio.cpu.terminados.enqueue(proc);
-                              // infra.Inicio.terminados.append(Integer.toString(p.getId())+"\n");
-                                 infra.Inicio.cpu.agregarProceso(p);
+                            Thread.sleep(procesoP.getTiempo()*1000);
+                            procesoP.execute();
+                            if(procesoP.getTipo()==2){
+                                Proceso proc = ram.sacarProceso(procesoP.getId());
+                                infra.Inicio.cpu.agregarProceso(procesoP);
                                 MISS();
-
                                 Inicio.actualizaInterfaz();
-                                infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+ "  El proceso continuara..."+">>>\n");
-                                if(p.getTipo()==3){
+                                infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ procesoP.getId()+ "  El proceso continuara..."+">>>\n");
+                                if(procesoP.getTipo()==3){
                                     Inicio.semaforo.setBackground(Color.green);
                                 }
-
-                        
                              }
                              else{
-                                Proceso proc = ram.sacarProceso(p.getId());
+                                Proceso proc = ram.sacarProceso(procesoP.getId());
                                 infra.Inicio.cpu.terminados.enqueue(proc);
-                                infra.Inicio.terminados.append(Integer.toString(p.getId())+"\n");
+                                infra.Inicio.terminados.append(Integer.toString(procesoP.getId())+"\n");
                                 MISS();
 
                                 Inicio.actualizaInterfaz();
-                                infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ p.getId()+">>>\n");
-                                if(p.getTipo()==3){
+                                infra.Inicio.pantalla.append("<<< PROCESO TERMINADO. PID: "+ procesoP.getId()+">>>\n");
+                                if(procesoP.getTipo()==3){
                                     Inicio.semaforo.setBackground(Color.green);
                                 }
-
-                               
-                                 
                              }
                               despachador();
-
-
                         } catch (InterruptedException ex) {
                             System.out.println("ERROR");
                           //  Logger.getLogger(Dispatcher.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,15 +203,8 @@ public class CPU{
                 cpu.ejecucion=0;
             }
         }
-       catch(Exception e){
-           despachador();
-            
+        catch(Exception e){
+            despachador();
         }
-          
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-
-
-    }
+}

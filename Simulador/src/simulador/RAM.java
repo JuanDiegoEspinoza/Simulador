@@ -17,19 +17,14 @@ import java.util.*;
  */
 public class RAM {
 
-
     public ArrayList<Proceso> listaProceso;
-
     private int uso;
-
-
+    
     public RAM(int tamano){
         listaProceso = new ArrayList<Proceso>();
         this.uso=tamano;
-
     }
-
-
+    
     public void setUso(int uso){
         this.uso +=uso;
     }
@@ -37,43 +32,45 @@ public class RAM {
     public int getUso(){
         return this.uso;
     }
-
-
-
-    public Proceso BuscarProceso(int id){
-        int largoLista = this.listaProceso.size();
-        for(int i=0;i<largoLista;i++){
-            Proceso proceso = listaProceso.get(i);
-            if(proceso.getId()==id){
-                return proceso;
-            }
-        }
-        System.out.println("Proceso no encontrado...");
-        return null;
-    }
-
+    
+    
+    /*Metodo utilizado para ingresar procesos a la memoria RAM
+    Retorno: 1  ---> Se completo exitosamente
+    Retorno: 0  --->
+    Retorno: -1 ---> 
+    */
+    
     public int agregarProceso(Proceso proceso){
+        /*
+        Se valida que exista memoria disponible para agregar procesos a RAM
+        y que no hayan procesos en HDD que puedan sufrir Starvation
+        */
         if ((getUso() - proceso.getMemoria()>=0) && (Inicio.cpu.hdd.listaHDD.isEmpty())){
             proceso.setEstado(1);
+            //Se agrega el proceso a la lista en RAM
             listaProceso.add(proceso);
+            //Se disminuye la cantidad de memoria disponible
             setUso(-proceso.getMemoria());
             infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+proceso.getId()+"\n\n\n");
-            String p=  Integer.toString(proceso.getId());
-            //Inicio.ram.add(p);
-            //System.out.println("El proceso ha sido agregado a RAM...PID: "+proceso.getId()+"\n");
             Inicio.actualizaInterfaz();
+            
             return 1;
         }
+        //En caso de que la lista de RAM no se encuentre vacia
         else if (getUso() - proceso.getMemoria()>=0 && Inicio.cpu.hdd.listaHDD.isEmpty()==false){
+            //Se obtiene el primer proceso en HDD
             Proceso enHDD = Inicio.cpu.hdd.listaHDD.get(0);
+            //Se valida que exista espacio en RAM para el proceso
             if (getUso()-enHDD.getMemoria() >=0){
                 enHDD.setEstado(1);
                 listaProceso.add(enHDD);
+                //Elimino de la lista de HDD el proceso que se saco anteriormente
                 Inicio.cpu.hdd.sacarProceso(enHDD.getId());
+                //Se disminuye la cantidad de memoria disponible en RAM
                 setUso(-enHDD.getMemoria());
                 infra.Inicio.pantalla.append("\t\tEl proceso ha sido agregado a RAM PID: "+enHDD.getId()+"\n\n\n");
                 Inicio.actualizaInterfaz();
-               
+                //Se intenta ingresar a RAM el proceso nuevamente
                 agregarProceso(proceso);
                 return 1;
             }
@@ -83,29 +80,20 @@ public class RAM {
         }
         return 0;
     }
-        
 
-
-
-    public Proceso verificarBloqueados(){
-        for (int i=0;i<listaProceso.size();i++){
-            if(listaProceso.get(i).getEstado()==0){
-                sacarProceso(listaProceso.get(i).getId());
-                return listaProceso.get(i);
-            }
-            return null; //-1 indica que no hay bloqueados
-        }
-         return null;
-    }
-
+    
+    /*
+    Metodo utilizado para sacar de la lista los procesos que ya fueron
+    ejecutados
+    */
     public Proceso sacarProceso(int id){
         int largo = listaProceso.size()-1;
         for(int i =0; i<=largo;i++){
             Proceso proceso = listaProceso.get(i);
             if (proceso.getId()==id){
                 listaProceso.remove(proceso);
+                //Se reestablece la cantidad de memoria disponible
                 setUso(proceso.getMemoria());
-                //System.out.println("YEAH");
                 System.out.println("Saco:"+proceso.getId());
                 return null;
             }
@@ -122,12 +110,14 @@ public class RAM {
         this.listaProceso = lista;
     }
 
+    //Metodo utilizado para sacar de RAM los procesos bloqueados
     public Proceso sacarBloqueado(){
         int largoLista = listaProceso.size();
         for (int i=0;i<largoLista;i++){
             Proceso qwerty = listaProceso.get(i);
             if (qwerty.getEstado()==0){
                 listaProceso.remove(qwerty);
+                //Se reeetablece la cantidad de memoria disponible en RAM
                 setUso(qwerty.getMemoria());
                 return qwerty;
             }
